@@ -1,0 +1,789 @@
+#! /usr/local/bin/vvp
+:ivl_version "13.0 (devel)" "(s20221226-538-g8c56b2d11)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/local/lib/ivl/system.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/local/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/local/lib/ivl/v2005_math.vpi";
+:vpi_module "/usr/local/lib/ivl/va_math.vpi";
+S_0x563a8356b4e0 .scope module, "forwarding_unit_tb" "forwarding_unit_tb" 2 5;
+ .timescale 0 0;
+v0x563a83649a80_0 .var "ADDR1", 4 0;
+v0x563a83649b60_0 .var "ADDR2", 4 0;
+v0x563a83649c00_0 .net "DATA1ALUSEL", 1 0, L_0x563a83650e80;  1 drivers
+v0x563a83649ca0_0 .net "DATA1BJSEL", 1 0, L_0x563a83651bd0;  1 drivers
+v0x563a83649d40_0 .net "DATA1IDSEL", 0 0, L_0x563a83656e60;  1 drivers
+v0x563a83649de0_0 .net "DATA2ALUSEL", 1 0, L_0x563a83654890;  1 drivers
+v0x563a83649eb0_0 .net "DATA2BJSEL", 1 0, L_0x563a836550e0;  1 drivers
+v0x563a83649f80_0 .net "DATA2IDSEL", 0 0, L_0x563a83657fc0;  1 drivers
+v0x563a8364a050_0 .net "DATAMEMSEL", 0 0, L_0x563a83658120;  1 drivers
+v0x563a8364a120_0 .var "EXE_ADDR", 4 0;
+v0x563a8364a1f0_0 .var "MEM_ADDR", 4 0;
+v0x563a8364a2c0_0 .var "OP1SEL", 0 0;
+v0x563a8364a390_0 .var "OP2SEL", 0 0;
+v0x563a8364a460_0 .var "OPCODE", 6 0;
+v0x563a8364a530_0 .var "WB_ADDR", 4 0;
+S_0x563a835f2290 .scope module, "my_forwarding_unit" "forwarding_unit" 2 15, 3 1 0, S_0x563a8356b4e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 5 "ADDR1";
+    .port_info 1 /INPUT 5 "ADDR2";
+    .port_info 2 /INPUT 5 "WB_ADDR";
+    .port_info 3 /INPUT 5 "MEM_ADDR";
+    .port_info 4 /INPUT 5 "EXE_ADDR";
+    .port_info 5 /INPUT 1 "OP1SEL";
+    .port_info 6 /INPUT 1 "OP2SEL";
+    .port_info 7 /INPUT 7 "OPCODE";
+    .port_info 8 /OUTPUT 1 "DATA1IDSEL";
+    .port_info 9 /OUTPUT 1 "DATA2IDSEL";
+    .port_info 10 /OUTPUT 2 "DATA1ALUSEL";
+    .port_info 11 /OUTPUT 2 "DATA2ALUSEL";
+    .port_info 12 /OUTPUT 2 "DATA1BJSEL";
+    .port_info 13 /OUTPUT 2 "DATA2BJSEL";
+    .port_info 14 /OUTPUT 1 "DATAMEMSEL";
+L_0x563a83604e30/0/0 .functor AND 1, L_0x563a8364a780, L_0x563a8364a8c0, L_0x563a8364aa50, L_0x563a8364ac10;
+L_0x563a83604e30/0/4 .functor AND 1, L_0x563a8364ad90, L_0x563a8364ae80, L_0x563a8364afc0, C4<1>;
+L_0x563a83604e30 .functor AND 1, L_0x563a83604e30/0/0, L_0x563a83604e30/0/4, C4<1>, C4<1>;
+L_0x563a835fc440/0/0 .functor AND 1, L_0x563a8364b200, L_0x563a8364b400, L_0x563a8364b660, L_0x563a8364b8d0;
+L_0x563a835fc440/0/4 .functor AND 1, L_0x563a8364bb50, L_0x563a8364bc90, L_0x563a8364bab0, C4<1>;
+L_0x563a835fc440 .functor AND 1, L_0x563a835fc440/0/0, L_0x563a835fc440/0/4, C4<1>, C4<1>;
+L_0x563a8364b390/0/0 .functor AND 1, L_0x563a8364c060, L_0x563a8364c1a0, L_0x563a8364c400, L_0x563a8364c6c0;
+L_0x563a8364b390/0/4 .functor AND 1, L_0x563a8364c990, L_0x563a8364cbd0, L_0x563a8364ccc0, C4<1>;
+L_0x563a8364b390 .functor AND 1, L_0x563a8364b390/0/0, L_0x563a8364b390/0/4, C4<1>, C4<1>;
+L_0x563a835f4110/0/0 .functor AND 1, L_0x563a8364d010, L_0x563a8364d310, L_0x563a8364d580, L_0x563a8364d450;
+L_0x563a835f4110/0/4 .functor AND 1, L_0x563a8364da90, L_0x563a8364dbd0, L_0x563a8364de20, C4<1>;
+L_0x563a835f4110 .functor AND 1, L_0x563a835f4110/0/0, L_0x563a835f4110/0/4, C4<1>, C4<1>;
+L_0x563a835f4180/0/0 .functor AND 1, L_0x563a8364e170, L_0x563a8364e2b0, L_0x563a8364e520, L_0x563a8364e840;
+L_0x563a835f4180/0/4 .functor AND 1, L_0x563a8364ebc0, L_0x563a8364ed00, L_0x563a8364efa0, C4<1>;
+L_0x563a835f4180 .functor AND 1, L_0x563a835f4180/0/0, L_0x563a835f4180/0/4, C4<1>, C4<1>;
+L_0x563a8364f090 .functor OR 1, L_0x563a83604e30, L_0x563a835fc440, C4<0>, C4<0>;
+L_0x563a8364f1a0 .functor OR 1, L_0x563a8364f090, L_0x563a8364b390, C4<0>, C4<0>;
+L_0x563a8364f2b0 .functor OR 1, L_0x563a8364f1a0, L_0x563a835f4110, C4<0>, C4<0>;
+L_0x563a8364f410 .functor OR 1, L_0x563a8364f2b0, L_0x563a835f4180, C4<0>, C4<0>;
+L_0x563a8364f520 .functor XNOR 5, v0x563a8364a1f0_0, v0x563a83649a80_0, C4<00000>, C4<00000>;
+L_0x563a8364f690 .functor XNOR 5, v0x563a8364a120_0, v0x563a83649a80_0, C4<00000>, C4<00000>;
+L_0x563a8364fa50 .functor AND 1, L_0x563a8364f700, L_0x563a8364f9b0, C4<1>, C4<1>;
+L_0x563a8364fe40 .functor AND 1, L_0x563a8364fa50, L_0x563a8364fbd0, C4<1>, C4<1>;
+L_0x563a8364ffa0 .functor AND 1, L_0x563a8364fe40, L_0x563a8364ff00, C4<1>, C4<1>;
+L_0x563a8364fb60 .functor AND 1, L_0x563a8364ffa0, L_0x563a83650130, C4<1>, C4<1>;
+L_0x563a836507d0 .functor AND 1, L_0x563a83650450, L_0x563a83650540, C4<1>, C4<1>;
+L_0x563a83650a10 .functor AND 1, L_0x563a836507d0, L_0x563a83650970, C4<1>, C4<1>;
+L_0x563a83650d70 .functor AND 1, L_0x563a83650a10, L_0x563a83650ad0, C4<1>, C4<1>;
+L_0x563a83650fc0 .functor AND 1, L_0x563a83650d70, L_0x563a83650f20, C4<1>, C4<1>;
+L_0x563a836510d0 .functor AND 1, L_0x563a8364fb60, L_0x563a8364f410, C4<1>, C4<1>;
+L_0x563a83651290 .functor AND 1, L_0x563a83650fc0, L_0x563a8364f410, C4<1>, C4<1>;
+L_0x563a83651350 .functor OR 1, L_0x563a836510d0, L_0x563a83651290, C4<0>, C4<0>;
+L_0x563a83651870 .functor AND 1, v0x563a8364a2c0_0, L_0x563a836517d0, C4<1>, C4<1>;
+L_0x563a83651980 .functor OR 1, L_0x563a83651870, L_0x563a83651290, C4<0>, C4<0>;
+L_0x563a83651b60 .functor OR 1, L_0x563a8364fb60, L_0x563a83650fc0, C4<0>, C4<0>;
+L_0x563a83651fd0 .functor AND 1, v0x563a8364a2c0_0, L_0x563a83651f30, C4<1>, C4<1>;
+L_0x563a83652120 .functor OR 1, L_0x563a83651fd0, L_0x563a83650fc0, C4<0>, C4<0>;
+L_0x563a836522c0 .functor XNOR 5, v0x563a8364a1f0_0, v0x563a83649b60_0, C4<00000>, C4<00000>;
+L_0x563a83652420 .functor XNOR 5, v0x563a8364a120_0, v0x563a83649b60_0, C4<00000>, C4<00000>;
+L_0x563a83652850 .functor AND 1, L_0x563a83652490, L_0x563a836527b0, C4<1>, C4<1>;
+L_0x563a83652dd0 .functor AND 1, L_0x563a83652850, L_0x563a83652a60, C4<1>, C4<1>;
+L_0x563a83652f30 .functor AND 1, L_0x563a83652dd0, L_0x563a83652e90, C4<1>, C4<1>;
+L_0x563a83653440 .functor AND 1, L_0x563a83652f30, L_0x563a83653150, C4<1>, C4<1>;
+L_0x563a83653940 .functor AND 1, L_0x563a83653550, L_0x563a83653640, C4<1>, C4<1>;
+L_0x563a83653ca0 .functor AND 1, L_0x563a83653940, L_0x563a83653b70, C4<1>, C4<1>;
+L_0x563a83654070 .functor AND 1, L_0x563a83653ca0, L_0x563a83653d60, C4<1>, C4<1>;
+L_0x563a83654350 .functor AND 1, L_0x563a83654070, L_0x563a836542b0, C4<1>, C4<1>;
+L_0x563a83654460 .functor AND 1, L_0x563a83653440, L_0x563a835f4180, C4<1>, C4<1>;
+L_0x563a83654180 .functor AND 1, L_0x563a83654350, L_0x563a835f4180, C4<1>, C4<1>;
+L_0x563a83654240 .functor OR 1, L_0x563a83654460, L_0x563a83654180, C4<0>, C4<0>;
+L_0x563a83654cf0 .functor AND 1, v0x563a8364a390_0, L_0x563a83654c50, C4<1>, C4<1>;
+L_0x563a83654e00 .functor OR 1, L_0x563a83654cf0, L_0x563a83654180, C4<0>, C4<0>;
+L_0x563a83655070 .functor OR 1, L_0x563a83653440, L_0x563a83654350, C4<0>, C4<0>;
+L_0x563a836555e0 .functor AND 1, v0x563a8364a390_0, L_0x563a836554b0, C4<1>, C4<1>;
+L_0x563a836557c0 .functor OR 1, L_0x563a836555e0, L_0x563a83654350, C4<0>, C4<0>;
+L_0x563a83655960 .functor XNOR 5, v0x563a8364a530_0, v0x563a83649a80_0, C4<00000>, C4<00000>;
+L_0x563a83655be0 .functor XNOR 5, v0x563a8364a530_0, v0x563a83649b60_0, C4<00000>, C4<00000>;
+L_0x563a836560c0 .functor AND 1, L_0x563a83655ce0, L_0x563a83656020, C4<1>, C4<1>;
+L_0x563a836566f0 .functor AND 1, L_0x563a836560c0, L_0x563a83656310, C4<1>, C4<1>;
+L_0x563a83656850 .functor AND 1, L_0x563a836566f0, L_0x563a836567b0, C4<1>, C4<1>;
+L_0x563a83656e60 .functor AND 1, L_0x563a83656850, L_0x563a83656b00, C4<1>, C4<1>;
+L_0x563a83657420 .functor AND 1, L_0x563a83656fc0, L_0x563a836570b0, C4<1>, C4<1>;
+L_0x563a83657810 .functor AND 1, L_0x563a83657420, L_0x563a836576e0, C4<1>, C4<1>;
+L_0x563a83657c50 .functor AND 1, L_0x563a83657810, L_0x563a836578d0, C4<1>, C4<1>;
+L_0x563a83657fc0 .functor AND 1, L_0x563a83657c50, L_0x563a83657f20, C4<1>, C4<1>;
+L_0x563a83658120 .functor BUFZ 1, L_0x563a83654350, C4<0>, C4<0>, C4<0>;
+v0x563a835f4270_0 .net "ADDR1", 4 0, v0x563a83649a80_0;  1 drivers
+v0x563a835f4310_0 .net "ADDR2", 4 0, v0x563a83649b60_0;  1 drivers
+v0x563a83640fa0_0 .net "DATA1ALUSEL", 1 0, L_0x563a83650e80;  alias, 1 drivers
+v0x563a83641060_0 .net "DATA1BJSEL", 1 0, L_0x563a83651bd0;  alias, 1 drivers
+v0x563a83641140_0 .net "DATA1IDSEL", 0 0, L_0x563a83656e60;  alias, 1 drivers
+v0x563a83641250_0 .net "DATA2ALUSEL", 1 0, L_0x563a83654890;  alias, 1 drivers
+v0x563a83641330_0 .net "DATA2BJSEL", 1 0, L_0x563a836550e0;  alias, 1 drivers
+v0x563a83641410_0 .net "DATA2IDSEL", 0 0, L_0x563a83657fc0;  alias, 1 drivers
+v0x563a836414d0_0 .net "DATAMEMSEL", 0 0, L_0x563a83658120;  alias, 1 drivers
+v0x563a83641590_0 .net "EXE_ADDR", 4 0, v0x563a8364a120_0;  1 drivers
+v0x563a83641670_0 .net "INST_MASK", 0 0, L_0x563a8364f410;  1 drivers
+v0x563a83641730_0 .net "I_TYPE", 0 0, L_0x563a835f4110;  1 drivers
+v0x563a836417f0_0 .net "JALR", 0 0, L_0x563a83604e30;  1 drivers
+v0x563a836418b0_0 .net "LOAD", 0 0, L_0x563a835fc440;  1 drivers
+v0x563a83641970_0 .net "MEM_ADDR", 4 0, v0x563a8364a1f0_0;  1 drivers
+v0x563a83641a50_0 .net "MEM_EXE_ALU_DATA1", 0 0, L_0x563a83651290;  1 drivers
+v0x563a83641b10_0 .net "MEM_EXE_ALU_DATA2", 0 0, L_0x563a83654180;  1 drivers
+v0x563a83641bd0_0 .net "MEM_EXE_BJ_DATA1", 0 0, L_0x563a83650fc0;  1 drivers
+v0x563a83641c90_0 .net "MEM_EXE_BJ_DATA2", 0 0, L_0x563a83654350;  1 drivers
+v0x563a83641d50_0 .net "MEM_EXE_XNOR_DATA1", 4 0, L_0x563a8364f690;  1 drivers
+v0x563a83641e30_0 .net "MEM_EXE_XNOR_DATA2", 4 0, L_0x563a83652420;  1 drivers
+v0x563a83641f10_0 .net "OP1SEL", 0 0, v0x563a8364a2c0_0;  1 drivers
+v0x563a83641fd0_0 .net "OP2SEL", 0 0, v0x563a8364a390_0;  1 drivers
+v0x563a83642090_0 .net "OPCODE", 6 0, v0x563a8364a460_0;  1 drivers
+v0x563a83642170_0 .net "R_TYPE", 0 0, L_0x563a835f4180;  1 drivers
+v0x563a83642230_0 .net "STORE", 0 0, L_0x563a8364b390;  1 drivers
+v0x563a836422f0_0 .net "WB_ADDR", 4 0, v0x563a8364a530_0;  1 drivers
+v0x563a836423d0_0 .net "WB_EXE_ALU_DATA1", 0 0, L_0x563a836510d0;  1 drivers
+v0x563a83642490_0 .net "WB_EXE_ALU_DATA2", 0 0, L_0x563a83654460;  1 drivers
+v0x563a83642550_0 .net "WB_EXE_BJ_DATA1", 0 0, L_0x563a8364fb60;  1 drivers
+v0x563a83642610_0 .net "WB_EXE_BJ_DATA2", 0 0, L_0x563a83653440;  1 drivers
+v0x563a836426d0_0 .net "WB_EXE_XNOR_DATA1", 4 0, L_0x563a8364f520;  1 drivers
+v0x563a836427b0_0 .net "WB_EXE_XNOR_DATA2", 4 0, L_0x563a836522c0;  1 drivers
+v0x563a83642890_0 .net "WB_ID_XNOR_DATA1", 4 0, L_0x563a83655960;  1 drivers
+v0x563a83642970_0 .net "WB_ID_XNOR_DATA2", 4 0, L_0x563a83655be0;  1 drivers
+v0x563a83642a50_0 .net *"_ivl_1", 0 0, L_0x563a8364a780;  1 drivers
+v0x563a83642b30_0 .net *"_ivl_101", 0 0, L_0x563a8364ebc0;  1 drivers
+v0x563a83642bf0_0 .net *"_ivl_103", 0 0, L_0x563a8364ed00;  1 drivers
+v0x563a83642cd0_0 .net *"_ivl_105", 0 0, L_0x563a8364efa0;  1 drivers
+v0x563a83642db0_0 .net *"_ivl_106", 0 0, L_0x563a8364f090;  1 drivers
+v0x563a83642e90_0 .net *"_ivl_108", 0 0, L_0x563a8364f1a0;  1 drivers
+v0x563a83642f70_0 .net *"_ivl_11", 0 0, L_0x563a8364ac10;  1 drivers
+v0x563a83643030_0 .net *"_ivl_110", 0 0, L_0x563a8364f2b0;  1 drivers
+v0x563a83643110_0 .net *"_ivl_119", 0 0, L_0x563a8364f700;  1 drivers
+v0x563a836431f0_0 .net *"_ivl_121", 0 0, L_0x563a8364f9b0;  1 drivers
+v0x563a836432d0_0 .net *"_ivl_122", 0 0, L_0x563a8364fa50;  1 drivers
+v0x563a836433b0_0 .net *"_ivl_125", 0 0, L_0x563a8364fbd0;  1 drivers
+v0x563a83643490_0 .net *"_ivl_126", 0 0, L_0x563a8364fe40;  1 drivers
+v0x563a83643570_0 .net *"_ivl_129", 0 0, L_0x563a8364ff00;  1 drivers
+v0x563a83643650_0 .net *"_ivl_13", 0 0, L_0x563a8364ad90;  1 drivers
+v0x563a83643730_0 .net *"_ivl_130", 0 0, L_0x563a8364ffa0;  1 drivers
+v0x563a83643810_0 .net *"_ivl_133", 0 0, L_0x563a83650130;  1 drivers
+v0x563a836438f0_0 .net *"_ivl_137", 0 0, L_0x563a83650450;  1 drivers
+v0x563a836439d0_0 .net *"_ivl_139", 0 0, L_0x563a83650540;  1 drivers
+v0x563a83643ab0_0 .net *"_ivl_140", 0 0, L_0x563a836507d0;  1 drivers
+v0x563a83643b90_0 .net *"_ivl_143", 0 0, L_0x563a83650970;  1 drivers
+v0x563a83643c70_0 .net *"_ivl_144", 0 0, L_0x563a83650a10;  1 drivers
+v0x563a83643d50_0 .net *"_ivl_147", 0 0, L_0x563a83650ad0;  1 drivers
+v0x563a83643e30_0 .net *"_ivl_148", 0 0, L_0x563a83650d70;  1 drivers
+v0x563a83643f10_0 .net *"_ivl_15", 0 0, L_0x563a8364ae80;  1 drivers
+v0x563a83643ff0_0 .net *"_ivl_151", 0 0, L_0x563a83650f20;  1 drivers
+v0x563a836440d0_0 .net *"_ivl_160", 0 0, L_0x563a83651350;  1 drivers
+v0x563a836441b0_0 .net *"_ivl_166", 0 0, L_0x563a836517d0;  1 drivers
+v0x563a83644270_0 .net *"_ivl_167", 0 0, L_0x563a83651870;  1 drivers
+v0x563a83644350_0 .net *"_ivl_169", 0 0, L_0x563a83651980;  1 drivers
+v0x563a83644430_0 .net *"_ivl_17", 0 0, L_0x563a8364afc0;  1 drivers
+v0x563a83644510_0 .net *"_ivl_173", 0 0, L_0x563a83651b60;  1 drivers
+v0x563a836445f0_0 .net *"_ivl_179", 0 0, L_0x563a83651f30;  1 drivers
+v0x563a836446b0_0 .net *"_ivl_180", 0 0, L_0x563a83651fd0;  1 drivers
+v0x563a83644790_0 .net *"_ivl_182", 0 0, L_0x563a83652120;  1 drivers
+v0x563a83644870_0 .net *"_ivl_189", 0 0, L_0x563a83652490;  1 drivers
+v0x563a83644950_0 .net *"_ivl_19", 0 0, L_0x563a8364b100;  1 drivers
+v0x563a83644a30_0 .net *"_ivl_191", 0 0, L_0x563a836527b0;  1 drivers
+v0x563a83644b10_0 .net *"_ivl_192", 0 0, L_0x563a83652850;  1 drivers
+v0x563a83644bf0_0 .net *"_ivl_195", 0 0, L_0x563a83652a60;  1 drivers
+v0x563a83644cd0_0 .net *"_ivl_196", 0 0, L_0x563a83652dd0;  1 drivers
+v0x563a83644db0_0 .net *"_ivl_199", 0 0, L_0x563a83652e90;  1 drivers
+v0x563a83644e90_0 .net *"_ivl_200", 0 0, L_0x563a83652f30;  1 drivers
+v0x563a83644f70_0 .net *"_ivl_203", 0 0, L_0x563a83653150;  1 drivers
+v0x563a83645050_0 .net *"_ivl_207", 0 0, L_0x563a83653550;  1 drivers
+v0x563a83645130_0 .net *"_ivl_209", 0 0, L_0x563a83653640;  1 drivers
+v0x563a83645210_0 .net *"_ivl_21", 0 0, L_0x563a8364b200;  1 drivers
+v0x563a836452d0_0 .net *"_ivl_210", 0 0, L_0x563a83653940;  1 drivers
+v0x563a836453b0_0 .net *"_ivl_213", 0 0, L_0x563a83653b70;  1 drivers
+v0x563a83645490_0 .net *"_ivl_214", 0 0, L_0x563a83653ca0;  1 drivers
+v0x563a83645570_0 .net *"_ivl_217", 0 0, L_0x563a83653d60;  1 drivers
+v0x563a83645650_0 .net *"_ivl_218", 0 0, L_0x563a83654070;  1 drivers
+v0x563a83645730_0 .net *"_ivl_221", 0 0, L_0x563a836542b0;  1 drivers
+v0x563a83645810_0 .net *"_ivl_23", 0 0, L_0x563a8364b2f0;  1 drivers
+v0x563a836458f0_0 .net *"_ivl_230", 0 0, L_0x563a83654240;  1 drivers
+v0x563a836459d0_0 .net *"_ivl_236", 0 0, L_0x563a83654c50;  1 drivers
+v0x563a83645a90_0 .net *"_ivl_237", 0 0, L_0x563a83654cf0;  1 drivers
+v0x563a83645b70_0 .net *"_ivl_239", 0 0, L_0x563a83654e00;  1 drivers
+v0x563a83645c50_0 .net *"_ivl_243", 0 0, L_0x563a83655070;  1 drivers
+v0x563a83645d30_0 .net *"_ivl_249", 0 0, L_0x563a836554b0;  1 drivers
+v0x563a83645df0_0 .net *"_ivl_25", 0 0, L_0x563a8364b400;  1 drivers
+v0x563a83645eb0_0 .net *"_ivl_250", 0 0, L_0x563a836555e0;  1 drivers
+v0x563a83645f90_0 .net *"_ivl_252", 0 0, L_0x563a836557c0;  1 drivers
+v0x563a83646070_0 .net *"_ivl_259", 0 0, L_0x563a83655ce0;  1 drivers
+v0x563a83646150_0 .net *"_ivl_261", 0 0, L_0x563a83656020;  1 drivers
+v0x563a83646230_0 .net *"_ivl_262", 0 0, L_0x563a836560c0;  1 drivers
+v0x563a83646310_0 .net *"_ivl_265", 0 0, L_0x563a83656310;  1 drivers
+v0x563a836463f0_0 .net *"_ivl_266", 0 0, L_0x563a836566f0;  1 drivers
+v0x563a836464d0_0 .net *"_ivl_269", 0 0, L_0x563a836567b0;  1 drivers
+v0x563a836465b0_0 .net *"_ivl_27", 0 0, L_0x563a8364b540;  1 drivers
+v0x563a83646690_0 .net *"_ivl_270", 0 0, L_0x563a83656850;  1 drivers
+v0x563a83646770_0 .net *"_ivl_273", 0 0, L_0x563a83656b00;  1 drivers
+v0x563a83646850_0 .net *"_ivl_277", 0 0, L_0x563a83656fc0;  1 drivers
+v0x563a83646930_0 .net *"_ivl_279", 0 0, L_0x563a836570b0;  1 drivers
+v0x563a83646a10_0 .net *"_ivl_280", 0 0, L_0x563a83657420;  1 drivers
+v0x563a83646af0_0 .net *"_ivl_283", 0 0, L_0x563a836576e0;  1 drivers
+v0x563a83646bd0_0 .net *"_ivl_284", 0 0, L_0x563a83657810;  1 drivers
+v0x563a83646cb0_0 .net *"_ivl_287", 0 0, L_0x563a836578d0;  1 drivers
+v0x563a83646d90_0 .net *"_ivl_288", 0 0, L_0x563a83657c50;  1 drivers
+v0x563a83646e70_0 .net *"_ivl_29", 0 0, L_0x563a8364b660;  1 drivers
+v0x563a83646f30_0 .net *"_ivl_291", 0 0, L_0x563a83657f20;  1 drivers
+v0x563a83647010_0 .net *"_ivl_3", 0 0, L_0x563a8364a8c0;  1 drivers
+v0x563a836470f0_0 .net *"_ivl_31", 0 0, L_0x563a8364b7a0;  1 drivers
+v0x563a836471d0_0 .net *"_ivl_33", 0 0, L_0x563a8364b8d0;  1 drivers
+v0x563a83647290_0 .net *"_ivl_35", 0 0, L_0x563a8364ba10;  1 drivers
+v0x563a83647370_0 .net *"_ivl_37", 0 0, L_0x563a8364bb50;  1 drivers
+v0x563a83647430_0 .net *"_ivl_39", 0 0, L_0x563a8364bc90;  1 drivers
+v0x563a83647510_0 .net *"_ivl_41", 0 0, L_0x563a8364bab0;  1 drivers
+v0x563a836475f0_0 .net *"_ivl_43", 0 0, L_0x563a8364bed0;  1 drivers
+v0x563a836476d0_0 .net *"_ivl_45", 0 0, L_0x563a8364c060;  1 drivers
+v0x563a83647790_0 .net *"_ivl_47", 0 0, L_0x563a8364c1a0;  1 drivers
+v0x563a83647870_0 .net *"_ivl_49", 0 0, L_0x563a8364c360;  1 drivers
+v0x563a83647950_0 .net *"_ivl_5", 0 0, L_0x563a8364a9b0;  1 drivers
+v0x563a83647a30_0 .net *"_ivl_51", 0 0, L_0x563a8364c400;  1 drivers
+v0x563a83648300_0 .net *"_ivl_53", 0 0, L_0x563a8364c620;  1 drivers
+v0x563a836483e0_0 .net *"_ivl_55", 0 0, L_0x563a8364c6c0;  1 drivers
+v0x563a836484a0_0 .net *"_ivl_57", 0 0, L_0x563a8364c8f0;  1 drivers
+v0x563a83648580_0 .net *"_ivl_59", 0 0, L_0x563a8364c990;  1 drivers
+v0x563a83648640_0 .net *"_ivl_61", 0 0, L_0x563a8364cbd0;  1 drivers
+v0x563a83648720_0 .net *"_ivl_63", 0 0, L_0x563a8364ccc0;  1 drivers
+v0x563a83648800_0 .net *"_ivl_65", 0 0, L_0x563a8364cf40;  1 drivers
+v0x563a836488e0_0 .net *"_ivl_67", 0 0, L_0x563a8364d010;  1 drivers
+v0x563a836489a0_0 .net *"_ivl_69", 0 0, L_0x563a8364d270;  1 drivers
+v0x563a83648a80_0 .net *"_ivl_7", 0 0, L_0x563a8364aa50;  1 drivers
+v0x563a83648b40_0 .net *"_ivl_71", 0 0, L_0x563a8364d310;  1 drivers
+v0x563a83648c00_0 .net *"_ivl_73", 0 0, L_0x563a8364d580;  1 drivers
+v0x563a83648ce0_0 .net *"_ivl_75", 0 0, L_0x563a8364d670;  1 drivers
+v0x563a83648dc0_0 .net *"_ivl_77", 0 0, L_0x563a8364d450;  1 drivers
+v0x563a83648e80_0 .net *"_ivl_79", 0 0, L_0x563a8364d8a0;  1 drivers
+v0x563a83648f60_0 .net *"_ivl_81", 0 0, L_0x563a8364da90;  1 drivers
+v0x563a83649020_0 .net *"_ivl_83", 0 0, L_0x563a8364dbd0;  1 drivers
+v0x563a83649100_0 .net *"_ivl_85", 0 0, L_0x563a8364de20;  1 drivers
+v0x563a836491e0_0 .net *"_ivl_87", 0 0, L_0x563a8364df60;  1 drivers
+v0x563a836492c0_0 .net *"_ivl_89", 0 0, L_0x563a8364e170;  1 drivers
+v0x563a83649380_0 .net *"_ivl_9", 0 0, L_0x563a8364ab70;  1 drivers
+v0x563a83649460_0 .net *"_ivl_91", 0 0, L_0x563a8364e2b0;  1 drivers
+v0x563a83649540_0 .net *"_ivl_93", 0 0, L_0x563a8364e520;  1 drivers
+v0x563a83649620_0 .net *"_ivl_95", 0 0, L_0x563a8364e610;  1 drivers
+v0x563a83649700_0 .net *"_ivl_97", 0 0, L_0x563a8364e840;  1 drivers
+v0x563a836497c0_0 .net *"_ivl_99", 0 0, L_0x563a8364e980;  1 drivers
+L_0x563a8364a780 .part v0x563a8364a460_0, 6, 1;
+L_0x563a8364a8c0 .part v0x563a8364a460_0, 5, 1;
+L_0x563a8364a9b0 .part v0x563a8364a460_0, 4, 1;
+L_0x563a8364aa50 .reduce/nor L_0x563a8364a9b0;
+L_0x563a8364ab70 .part v0x563a8364a460_0, 3, 1;
+L_0x563a8364ac10 .reduce/nor L_0x563a8364ab70;
+L_0x563a8364ad90 .part v0x563a8364a460_0, 2, 1;
+L_0x563a8364ae80 .part v0x563a8364a460_0, 1, 1;
+L_0x563a8364afc0 .part v0x563a8364a460_0, 0, 1;
+L_0x563a8364b100 .part v0x563a8364a460_0, 6, 1;
+L_0x563a8364b200 .reduce/nor L_0x563a8364b100;
+L_0x563a8364b2f0 .part v0x563a8364a460_0, 5, 1;
+L_0x563a8364b400 .reduce/nor L_0x563a8364b2f0;
+L_0x563a8364b540 .part v0x563a8364a460_0, 4, 1;
+L_0x563a8364b660 .reduce/nor L_0x563a8364b540;
+L_0x563a8364b7a0 .part v0x563a8364a460_0, 3, 1;
+L_0x563a8364b8d0 .reduce/nor L_0x563a8364b7a0;
+L_0x563a8364ba10 .part v0x563a8364a460_0, 2, 1;
+L_0x563a8364bb50 .reduce/nor L_0x563a8364ba10;
+L_0x563a8364bc90 .part v0x563a8364a460_0, 1, 1;
+L_0x563a8364bab0 .part v0x563a8364a460_0, 0, 1;
+L_0x563a8364bed0 .part v0x563a8364a460_0, 6, 1;
+L_0x563a8364c060 .reduce/nor L_0x563a8364bed0;
+L_0x563a8364c1a0 .part v0x563a8364a460_0, 5, 1;
+L_0x563a8364c360 .part v0x563a8364a460_0, 4, 1;
+L_0x563a8364c400 .reduce/nor L_0x563a8364c360;
+L_0x563a8364c620 .part v0x563a8364a460_0, 3, 1;
+L_0x563a8364c6c0 .reduce/nor L_0x563a8364c620;
+L_0x563a8364c8f0 .part v0x563a8364a460_0, 2, 1;
+L_0x563a8364c990 .reduce/nor L_0x563a8364c8f0;
+L_0x563a8364cbd0 .part v0x563a8364a460_0, 1, 1;
+L_0x563a8364ccc0 .part v0x563a8364a460_0, 0, 1;
+L_0x563a8364cf40 .part v0x563a8364a460_0, 6, 1;
+L_0x563a8364d010 .reduce/nor L_0x563a8364cf40;
+L_0x563a8364d270 .part v0x563a8364a460_0, 5, 1;
+L_0x563a8364d310 .reduce/nor L_0x563a8364d270;
+L_0x563a8364d580 .part v0x563a8364a460_0, 4, 1;
+L_0x563a8364d670 .part v0x563a8364a460_0, 3, 1;
+L_0x563a8364d450 .reduce/nor L_0x563a8364d670;
+L_0x563a8364d8a0 .part v0x563a8364a460_0, 2, 1;
+L_0x563a8364da90 .reduce/nor L_0x563a8364d8a0;
+L_0x563a8364dbd0 .part v0x563a8364a460_0, 1, 1;
+L_0x563a8364de20 .part v0x563a8364a460_0, 0, 1;
+L_0x563a8364df60 .part v0x563a8364a460_0, 6, 1;
+L_0x563a8364e170 .reduce/nor L_0x563a8364df60;
+L_0x563a8364e2b0 .part v0x563a8364a460_0, 5, 1;
+L_0x563a8364e520 .part v0x563a8364a460_0, 4, 1;
+L_0x563a8364e610 .part v0x563a8364a460_0, 3, 1;
+L_0x563a8364e840 .reduce/nor L_0x563a8364e610;
+L_0x563a8364e980 .part v0x563a8364a460_0, 2, 1;
+L_0x563a8364ebc0 .reduce/nor L_0x563a8364e980;
+L_0x563a8364ed00 .part v0x563a8364a460_0, 1, 1;
+L_0x563a8364efa0 .part v0x563a8364a460_0, 0, 1;
+L_0x563a8364f700 .part L_0x563a8364f520, 4, 1;
+L_0x563a8364f9b0 .part L_0x563a8364f520, 3, 1;
+L_0x563a8364fbd0 .part L_0x563a8364f520, 2, 1;
+L_0x563a8364ff00 .part L_0x563a8364f520, 1, 1;
+L_0x563a83650130 .part L_0x563a8364f520, 0, 1;
+L_0x563a83650450 .part L_0x563a8364f690, 4, 1;
+L_0x563a83650540 .part L_0x563a8364f690, 3, 1;
+L_0x563a83650970 .part L_0x563a8364f690, 2, 1;
+L_0x563a83650ad0 .part L_0x563a8364f690, 1, 1;
+L_0x563a83650f20 .part L_0x563a8364f690, 0, 1;
+L_0x563a83650e80 .concat8 [ 1 1 0 0], L_0x563a83651980, L_0x563a83651350;
+L_0x563a836517d0 .reduce/nor L_0x563a836510d0;
+L_0x563a83651bd0 .concat8 [ 1 1 0 0], L_0x563a83652120, L_0x563a83651b60;
+L_0x563a83651f30 .reduce/nor L_0x563a8364fb60;
+L_0x563a83652490 .part L_0x563a836522c0, 4, 1;
+L_0x563a836527b0 .part L_0x563a836522c0, 3, 1;
+L_0x563a83652a60 .part L_0x563a836522c0, 2, 1;
+L_0x563a83652e90 .part L_0x563a836522c0, 1, 1;
+L_0x563a83653150 .part L_0x563a836522c0, 0, 1;
+L_0x563a83653550 .part L_0x563a83652420, 4, 1;
+L_0x563a83653640 .part L_0x563a83652420, 3, 1;
+L_0x563a83653b70 .part L_0x563a83652420, 2, 1;
+L_0x563a83653d60 .part L_0x563a83652420, 1, 1;
+L_0x563a836542b0 .part L_0x563a83652420, 0, 1;
+L_0x563a83654890 .concat8 [ 1 1 0 0], L_0x563a83654e00, L_0x563a83654240;
+L_0x563a83654c50 .reduce/nor L_0x563a83654460;
+L_0x563a836550e0 .concat8 [ 1 1 0 0], L_0x563a836557c0, L_0x563a83655070;
+L_0x563a836554b0 .reduce/nor L_0x563a83653440;
+L_0x563a83655ce0 .part L_0x563a83655960, 4, 1;
+L_0x563a83656020 .part L_0x563a83655960, 3, 1;
+L_0x563a83656310 .part L_0x563a83655960, 2, 1;
+L_0x563a836567b0 .part L_0x563a83655960, 1, 1;
+L_0x563a83656b00 .part L_0x563a83655960, 0, 1;
+L_0x563a83656fc0 .part L_0x563a83655be0, 4, 1;
+L_0x563a836570b0 .part L_0x563a83655be0, 3, 1;
+L_0x563a836576e0 .part L_0x563a83655be0, 2, 1;
+L_0x563a836578d0 .part L_0x563a83655be0, 1, 1;
+L_0x563a83657f20 .part L_0x563a83655be0, 0, 1;
+    .scope S_0x563a8356b4e0;
+T_0 ;
+    %vpi_call 2 18 "$dumpfile", "forwarding_unit_wavedata.vcd" {0 0 0};
+    %vpi_call 2 19 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x563a8356b4e0 {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 3, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 35, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.0, 6;
+    %vpi_call 2 39 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000000100101 {0 0 0};
+    %vpi_call 2 40 "$finish" {0 0 0};
+T_0.0 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.2, 6;
+    %vpi_call 2 40 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000000100110 {0 0 0};
+    %vpi_call 2 41 "$finish" {0 0 0};
+T_0.2 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.4, 6;
+    %vpi_call 2 41 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649c00_0, 32'sb00000000000000000000000000100111 {0 0 0};
+    %vpi_call 2 42 "$finish" {0 0 0};
+T_0.4 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 1, 0, 2;
+    %jmp/0xz  T_0.6, 6;
+    %vpi_call 2 42 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b01, v0x563a83649de0_0, 32'sb00000000000000000000000000101000 {0 0 0};
+    %vpi_call 2 43 "$finish" {0 0 0};
+T_0.6 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 1, 0, 1;
+    %jmp/0xz  T_0.8, 6;
+    %vpi_call 2 43 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b1, v0x563a8364a050_0, 32'sb00000000000000000000000000101001 {0 0 0};
+    %vpi_call 2 44 "$finish" {0 0 0};
+T_0.8 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.10, 6;
+    %vpi_call 2 44 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649ca0_0, 32'sb00000000000000000000000000101010 {0 0 0};
+    %vpi_call 2 45 "$finish" {0 0 0};
+T_0.10 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 3, 0, 2;
+    %jmp/0xz  T_0.12, 6;
+    %vpi_call 2 45 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b11, v0x563a83649eb0_0, 32'sb00000000000000000000000000101011 {0 0 0};
+    %vpi_call 2 46 "$finish" {0 0 0};
+T_0.12 ;
+    %vpi_call 2 44 "$display", "Forwarding unit Test 01 - Able to detect RW -> MEM data dependancy test passed!" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 5, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 51, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.14, 6;
+    %vpi_call 2 66 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000001000000 {0 0 0};
+    %vpi_call 2 67 "$finish" {0 0 0};
+T_0.14 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.16, 6;
+    %vpi_call 2 67 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000001000001 {0 0 0};
+    %vpi_call 2 68 "$finish" {0 0 0};
+T_0.16 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.18, 6;
+    %vpi_call 2 68 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649c00_0, 32'sb00000000000000000000000001000010 {0 0 0};
+    %vpi_call 2 69 "$finish" {0 0 0};
+T_0.18 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 2, 0, 2;
+    %jmp/0xz  T_0.20, 6;
+    %vpi_call 2 69 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b10, v0x563a83649de0_0, 32'sb00000000000000000000000001000011 {0 0 0};
+    %vpi_call 2 70 "$finish" {0 0 0};
+T_0.20 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.22, 6;
+    %vpi_call 2 70 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000001000100 {0 0 0};
+    %vpi_call 2 71 "$finish" {0 0 0};
+T_0.22 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.24, 6;
+    %vpi_call 2 71 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649ca0_0, 32'sb00000000000000000000000001000101 {0 0 0};
+    %vpi_call 2 72 "$finish" {0 0 0};
+T_0.24 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 2, 0, 2;
+    %jmp/0xz  T_0.26, 6;
+    %vpi_call 2 72 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b10, v0x563a83649eb0_0, 32'sb00000000000000000000000001000110 {0 0 0};
+    %vpi_call 2 73 "$finish" {0 0 0};
+T_0.26 ;
+    %vpi_call 2 71 "$display", "Forwarding unit Test 02 - Able to detect RW -> EX data dependancy test passed!" {0 0 0};
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 5, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 8, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 51, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.28, 6;
+    %vpi_call 2 94 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000001011100 {0 0 0};
+    %vpi_call 2 95 "$finish" {0 0 0};
+T_0.28 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 1, 0, 1;
+    %jmp/0xz  T_0.30, 6;
+    %vpi_call 2 95 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b1, v0x563a83649f80_0, 32'sb00000000000000000000000001011101 {0 0 0};
+    %vpi_call 2 96 "$finish" {0 0 0};
+T_0.30 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.32, 6;
+    %vpi_call 2 96 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649c00_0, 32'sb00000000000000000000000001011110 {0 0 0};
+    %vpi_call 2 97 "$finish" {0 0 0};
+T_0.32 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.34, 6;
+    %vpi_call 2 97 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649de0_0, 32'sb00000000000000000000000001011111 {0 0 0};
+    %vpi_call 2 98 "$finish" {0 0 0};
+T_0.34 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.36, 6;
+    %vpi_call 2 98 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000001100000 {0 0 0};
+    %vpi_call 2 99 "$finish" {0 0 0};
+T_0.36 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.38, 6;
+    %vpi_call 2 99 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649ca0_0, 32'sb00000000000000000000000001100001 {0 0 0};
+    %vpi_call 2 100 "$finish" {0 0 0};
+T_0.38 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.40, 6;
+    %vpi_call 2 100 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649eb0_0, 32'sb00000000000000000000000001100010 {0 0 0};
+    %vpi_call 2 101 "$finish" {0 0 0};
+T_0.40 ;
+    %vpi_call 2 99 "$display", "Forwarding unit Test 03 - Able to detect RW -> ID data dependancy test passed!" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 51, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.42, 6;
+    %vpi_call 2 120 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000001110110 {0 0 0};
+    %vpi_call 2 121 "$finish" {0 0 0};
+T_0.42 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.44, 6;
+    %vpi_call 2 121 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000001110111 {0 0 0};
+    %vpi_call 2 122 "$finish" {0 0 0};
+T_0.44 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 3, 0, 2;
+    %jmp/0xz  T_0.46, 6;
+    %vpi_call 2 122 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b11, v0x563a83649c00_0, 32'sb00000000000000000000000001111000 {0 0 0};
+    %vpi_call 2 123 "$finish" {0 0 0};
+T_0.46 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.48, 6;
+    %vpi_call 2 123 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649de0_0, 32'sb00000000000000000000000001111001 {0 0 0};
+    %vpi_call 2 124 "$finish" {0 0 0};
+T_0.48 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.50, 6;
+    %vpi_call 2 124 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000001111010 {0 0 0};
+    %vpi_call 2 125 "$finish" {0 0 0};
+T_0.50 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 3, 0, 2;
+    %jmp/0xz  T_0.52, 6;
+    %vpi_call 2 125 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b11, v0x563a83649ca0_0, 32'sb00000000000000000000000001111011 {0 0 0};
+    %vpi_call 2 126 "$finish" {0 0 0};
+T_0.52 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.54, 6;
+    %vpi_call 2 126 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649eb0_0, 32'sb00000000000000000000000001111100 {0 0 0};
+    %vpi_call 2 127 "$finish" {0 0 0};
+T_0.54 ;
+    %vpi_call 2 125 "$display", "Forwarding unit Test 04 - Able to detect MEM -> EXE data dependancy test passed!" {0 0 0};
+    %pushi/vec4 3, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 99, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.56, 6;
+    %vpi_call 2 146 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000010010000 {0 0 0};
+    %vpi_call 2 147 "$finish" {0 0 0};
+T_0.56 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.58, 6;
+    %vpi_call 2 147 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000010010001 {0 0 0};
+    %vpi_call 2 148 "$finish" {0 0 0};
+T_0.58 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 1, 0, 2;
+    %jmp/0xz  T_0.60, 6;
+    %vpi_call 2 148 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b01, v0x563a83649c00_0, 32'sb00000000000000000000000010010010 {0 0 0};
+    %vpi_call 2 149 "$finish" {0 0 0};
+T_0.60 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 1, 0, 2;
+    %jmp/0xz  T_0.62, 6;
+    %vpi_call 2 149 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b01, v0x563a83649de0_0, 32'sb00000000000000000000000010010011 {0 0 0};
+    %vpi_call 2 150 "$finish" {0 0 0};
+T_0.62 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.64, 6;
+    %vpi_call 2 150 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000010010100 {0 0 0};
+    %vpi_call 2 151 "$finish" {0 0 0};
+T_0.64 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 3, 0, 2;
+    %jmp/0xz  T_0.66, 6;
+    %vpi_call 2 151 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b11, v0x563a83649ca0_0, 32'sb00000000000000000000000010010101 {0 0 0};
+    %vpi_call 2 152 "$finish" {0 0 0};
+T_0.66 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 1, 0, 2;
+    %jmp/0xz  T_0.68, 6;
+    %vpi_call 2 152 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b01, v0x563a83649eb0_0, 32'sb00000000000000000000000010010110 {0 0 0};
+    %vpi_call 2 153 "$finish" {0 0 0};
+T_0.68 ;
+    %vpi_call 2 151 "$display", "Forwarding unit Test 04 - Able to detect MEM -> EXE data dependancy test passed!" {0 0 0};
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 6, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 51, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.70, 6;
+    %vpi_call 2 172 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649d40_0, 32'sb00000000000000000000000010101010 {0 0 0};
+    %vpi_call 2 173 "$finish" {0 0 0};
+T_0.70 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.72, 6;
+    %vpi_call 2 173 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000010101011 {0 0 0};
+    %vpi_call 2 174 "$finish" {0 0 0};
+T_0.72 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.74, 6;
+    %vpi_call 2 174 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649c00_0, 32'sb00000000000000000000000010101100 {0 0 0};
+    %vpi_call 2 175 "$finish" {0 0 0};
+T_0.74 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.76, 6;
+    %vpi_call 2 175 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649de0_0, 32'sb00000000000000000000000010101101 {0 0 0};
+    %vpi_call 2 176 "$finish" {0 0 0};
+T_0.76 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.78, 6;
+    %vpi_call 2 176 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000010101110 {0 0 0};
+    %vpi_call 2 177 "$finish" {0 0 0};
+T_0.78 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.80, 6;
+    %vpi_call 2 177 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649ca0_0, 32'sb00000000000000000000000010101111 {0 0 0};
+    %vpi_call 2 178 "$finish" {0 0 0};
+T_0.80 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.82, 6;
+    %vpi_call 2 178 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649eb0_0, 32'sb00000000000000000000000010110000 {0 0 0};
+    %vpi_call 2 179 "$finish" {0 0 0};
+T_0.82 ;
+    %vpi_call 2 177 "$display", "Forwarding unit Test 05 - No data dependancy test passed!" {0 0 0};
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a8364a530_0, 0, 5;
+    %pushi/vec4 4, 0, 5;
+    %store/vec4 v0x563a8364a1f0_0, 0, 5;
+    %pushi/vec4 5, 0, 5;
+    %store/vec4 v0x563a8364a120_0, 0, 5;
+    %pushi/vec4 1, 0, 5;
+    %store/vec4 v0x563a83649a80_0, 0, 5;
+    %pushi/vec4 2, 0, 5;
+    %store/vec4 v0x563a83649b60_0, 0, 5;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a2c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x563a8364a390_0, 0, 1;
+    %pushi/vec4 51, 0, 7;
+    %store/vec4 v0x563a8364a460_0, 0, 7;
+    %delay 0, 0;
+    %load/vec4 v0x563a83649d40_0;
+    %cmpi/ne 1, 0, 1;
+    %jmp/0xz  T_0.84, 6;
+    %vpi_call 2 201 "$display", "ASSERTION FAILED in %m: DATA1IDSEL != %b [original value %b] in line %0d", 1'b1, v0x563a83649d40_0, 32'sb00000000000000000000000011000111 {0 0 0};
+    %vpi_call 2 202 "$finish" {0 0 0};
+T_0.84 ;
+    %load/vec4 v0x563a83649f80_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.86, 6;
+    %vpi_call 2 202 "$display", "ASSERTION FAILED in %m: DATA2IDSEL != %b [original value %b] in line %0d", 1'b0, v0x563a83649f80_0, 32'sb00000000000000000000000011001000 {0 0 0};
+    %vpi_call 2 203 "$finish" {0 0 0};
+T_0.86 ;
+    %load/vec4 v0x563a83649c00_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.88, 6;
+    %vpi_call 2 203 "$display", "ASSERTION FAILED in %m: DATA1ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649c00_0, 32'sb00000000000000000000000011001001 {0 0 0};
+    %vpi_call 2 204 "$finish" {0 0 0};
+T_0.88 ;
+    %load/vec4 v0x563a83649de0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.90, 6;
+    %vpi_call 2 204 "$display", "ASSERTION FAILED in %m: DATA2ALUSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649de0_0, 32'sb00000000000000000000000011001010 {0 0 0};
+    %vpi_call 2 205 "$finish" {0 0 0};
+T_0.90 ;
+    %load/vec4 v0x563a8364a050_0;
+    %cmpi/ne 0, 0, 1;
+    %jmp/0xz  T_0.92, 6;
+    %vpi_call 2 205 "$display", "ASSERTION FAILED in %m: DATAMEMSEL != %b [original value %b] in line %0d", 1'b0, v0x563a8364a050_0, 32'sb00000000000000000000000011001011 {0 0 0};
+    %vpi_call 2 206 "$finish" {0 0 0};
+T_0.92 ;
+    %load/vec4 v0x563a83649ca0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.94, 6;
+    %vpi_call 2 206 "$display", "ASSERTION FAILED in %m: DATA1BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649ca0_0, 32'sb00000000000000000000000011001100 {0 0 0};
+    %vpi_call 2 207 "$finish" {0 0 0};
+T_0.94 ;
+    %load/vec4 v0x563a83649eb0_0;
+    %cmpi/ne 0, 0, 2;
+    %jmp/0xz  T_0.96, 6;
+    %vpi_call 2 207 "$display", "ASSERTION FAILED in %m: DATA2BJSEL != %b [original value %b] in line %0d", 2'b00, v0x563a83649eb0_0, 32'sb00000000000000000000000011001101 {0 0 0};
+    %vpi_call 2 208 "$finish" {0 0 0};
+T_0.96 ;
+    %vpi_call 2 206 "$display", "Forwarding unit Test 06 - All dependancies test passed!" {0 0 0};
+    %delay 500, 0;
+    %vpi_call 2 210 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "forwarding_unit_tb.v";
+    "./forwarding_unit.v";

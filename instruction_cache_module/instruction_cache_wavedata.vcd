@@ -1,0 +1,724 @@
+$date
+	Wed Aug 28 10:58:14 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module instruction_cache_tb $end
+$var wire 32 ! READDATA [31:0] $end
+$var wire 128 " MEM_READDATA [127:0] $end
+$var wire 1 # MEM_READ $end
+$var wire 1 $ MEM_BUSYWAIT $end
+$var wire 28 % MEM_ADDRESS [27:0] $end
+$var wire 1 & BUSYWAIT $end
+$var reg 32 ' ADDRESS [31:0] $end
+$var reg 1 ( CLK $end
+$var reg 1 ) RESET $end
+$var integer 32 * j [31:0] $end
+$scope module my_instruction_cache $end
+$var wire 32 + ADDRESS [31:0] $end
+$var wire 1 ( CLK $end
+$var wire 128 , DATA_OUT [127:0] $end
+$var wire 1 - HIT $end
+$var wire 1 ) RESET $end
+$var wire 25 . TAG_OUT [24:0] $end
+$var wire 1 / VALID_OUT $end
+$var wire 1 0 TAG_STATUS $end
+$var wire 128 1 MEM_READDATA [127:0] $end
+$var wire 1 $ MEM_BUSYWAIT $end
+$var parameter 2 2 IDLE $end
+$var parameter 2 3 READ_MEM $end
+$var parameter 2 4 UPDATE_CACHE $end
+$var reg 1 & BUSYWAIT $end
+$var reg 28 5 MEM_ADDRESS [27:0] $end
+$var reg 1 # MEM_READ $end
+$var reg 2 6 NEXT_STATE [1:0] $end
+$var reg 32 7 READDATA [31:0] $end
+$var reg 2 8 STATE [1:0] $end
+$var integer 32 9 i [31:0] $end
+$upscope $end
+$scope module my_instruction_memory $end
+$var wire 28 : ADDRESS [27:0] $end
+$var wire 1 ( CLK $end
+$var wire 1 # READ $end
+$var reg 1 $ BUSYWAIT $end
+$var reg 1 ; READACCESS $end
+$var reg 128 < READDATA [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 = \DATA[0] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 > \DATA[1] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 ? \DATA[2] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 @ \DATA[3] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 A \DATA[4] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 B \DATA[5] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 C \DATA[6] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 128 D \DATA[7] [127:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 E \TAG[0] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 F \TAG[1] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 G \TAG[2] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 H \TAG[3] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 I \TAG[4] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 J \TAG[5] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 K \TAG[6] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 25 L \TAG[7] [24:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 M \VALID[0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 N \VALID[1] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 O \VALID[2] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 P \VALID[3] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 Q \VALID[4] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 R \VALID[5] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 S \VALID[6] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_cache $end
+$var reg 1 T \VALID[7] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 U \MEM_ARRAY[0] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 V \MEM_ARRAY[1] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 W \MEM_ARRAY[2] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 X \MEM_ARRAY[3] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 Y \MEM_ARRAY[4] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 Z \MEM_ARRAY[5] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 [ \MEM_ARRAY[6] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 \ \MEM_ARRAY[7] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 ] \MEM_ARRAY[8] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 ^ \MEM_ARRAY[9] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 _ \MEM_ARRAY[10] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 ` \MEM_ARRAY[11] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 a \MEM_ARRAY[12] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 b \MEM_ARRAY[13] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 c \MEM_ARRAY[14] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 d \MEM_ARRAY[15] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 e \MEM_ARRAY[16] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 f \MEM_ARRAY[17] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 g \MEM_ARRAY[18] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 h \MEM_ARRAY[19] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 i \MEM_ARRAY[20] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 j \MEM_ARRAY[21] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 k \MEM_ARRAY[22] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 l \MEM_ARRAY[23] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 m \MEM_ARRAY[24] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 n \MEM_ARRAY[25] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 o \MEM_ARRAY[26] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 p \MEM_ARRAY[27] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 q \MEM_ARRAY[28] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 r \MEM_ARRAY[29] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 s \MEM_ARRAY[30] [7:0] $end
+$upscope $end
+$upscope $end
+$scope module instruction_cache_tb $end
+$scope module my_instruction_memory $end
+$var reg 8 t \MEM_ARRAY[31] [7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b10 4
+b1 3
+b0 2
+$end
+#0
+$dumpvars
+bx t
+bx s
+bx r
+bx q
+bx p
+bx o
+bx n
+bx m
+bx l
+bx k
+bx j
+bx i
+bx h
+bx g
+bx f
+bx e
+bx d
+bx c
+bx b
+bx a
+bx `
+bx _
+bx ^
+bx ]
+bx \
+bx [
+bx Z
+bx Y
+bx X
+bx W
+bx V
+bx U
+xT
+xS
+xR
+xQ
+xP
+xO
+xN
+xM
+bx L
+bx K
+bx J
+bx I
+bx H
+bx G
+bx F
+bx E
+bx D
+bx C
+bx B
+bx A
+bx @
+bx ?
+bx >
+bx =
+bx <
+x;
+bx :
+bx 9
+bx 8
+bx 7
+bx 6
+bx 5
+bx 1
+x0
+x/
+bx .
+x-
+bx ,
+bx +
+b100000 *
+x)
+1(
+bx '
+x&
+bx %
+x$
+x#
+bx "
+bx !
+$end
+#1
+0)
+#2
+0;
+0$
+0#
+b0 6
+bx D
+bx L
+0T
+bx C
+bx K
+0S
+bx B
+bx J
+0R
+bx A
+bx I
+0Q
+bx @
+bx H
+0P
+bx ?
+bx G
+0O
+bx >
+bx F
+0N
+bx =
+0&
+bx E
+0M
+b1000 9
+b0 8
+1)
+#3
+b1 6
+0-
+0/
+1&
+b0 '
+b0 +
+0)
+#4
+0(
+#8
+1;
+1$
+b0 %
+b0 5
+b0 :
+1#
+b1 6
+b1 8
+1(
+#12
+0(
+#16
+1(
+#20
+0(
+#24
+1(
+#28
+0(
+#32
+1(
+#36
+0(
+#40
+1(
+#44
+0(
+#48
+1(
+#52
+0(
+#56
+1(
+#60
+0(
+#64
+1(
+#68
+0(
+#72
+1(
+#76
+0(
+#80
+1(
+#84
+0(
+#88
+1(
+#92
+0(
+#96
+1(
+#100
+0(
+#104
+1(
+#108
+0(
+#112
+1(
+#116
+0(
+#120
+1(
+#124
+0(
+#128
+1(
+#132
+0(
+#136
+1(
+#140
+0(
+#144
+1(
+#148
+0(
+#152
+1(
+#156
+0(
+#160
+1(
+#164
+0(
+#168
+1(
+#172
+0(
+#176
+1(
+#180
+0(
+#184
+1(
+#188
+0(
+#192
+1(
+#196
+0(
+#200
+1(
+#204
+0(
+#208
+1(
+#212
+0(
+#216
+1(
+#220
+0(
+#224
+1(
+#228
+0(
+#232
+1(
+#236
+0(
+#240
+1(
+#244
+0(
+#248
+1(
+#252
+0(
+#256
+1(
+#260
+0(
+#264
+1(
+#268
+0(
+#272
+1(
+#276
+0(
+#280
+1(
+#284
+0(
+#288
+1(
+#292
+0(
+#296
+1(
+#300
+0(
+#304
+1(
+#308
+0(
+#312
+1(
+#316
+0(
+#320
+1(
+#324
+0(
+#328
+1(
+#332
+0(
+#336
+1(
+#340
+0(
+#344
+1(
+#348
+0(
+#352
+1(
+#356
+0(
+#360
+1(
+#364
+0(
+#368
+1(
+#372
+0(
+#376
+1(
+#380
+0(
+#384
+1(
+#388
+0(
+#392
+1(
+#396
+0(
+#400
+1(
+#404
+0(
+#408
+1(
+#412
+0(
+#416
+1(
+#420
+0(
+#424
+1(
+#428
+0(
+#432
+1(
+#436
+0(
+#440
+1(
+#444
+0(
+#448
+1(
+#452
+0(
+#456
+1(
+#460
+0(
+#464
+1(
+#468
+0(
+#472
+1(
+#476
+0(
+#480
+1(
+#484
+0(
+#488
+1(
+#492
+0(
+#496
+1(
+#500
+0(
+#503

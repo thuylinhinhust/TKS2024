@@ -1,0 +1,208 @@
+$date
+	Tue Aug 27 22:36:32 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module ex_mem_pipeline_reg_tb $end
+$var wire 2 ! OUT_WB_SEL [1:0] $end
+$var wire 1 " OUT_REG_WRITE_EN $end
+$var wire 4 # OUT_READ_WRITE [3:0] $end
+$var wire 32 $ OUT_PC [31:0] $end
+$var wire 5 % OUT_INSTRUCTION [4:0] $end
+$var wire 32 & OUT_IMMEDIATE [31:0] $end
+$var wire 1 ' OUT_DATAMEMSEL $end
+$var wire 32 ( OUT_DATA2 [31:0] $end
+$var wire 32 ) OUT_ALU_RESULT [31:0] $end
+$var reg 1 * BUSYWAIT $end
+$var reg 1 + CLK $end
+$var reg 32 , IN_ALU_RESULT [31:0] $end
+$var reg 32 - IN_DATA2 [31:0] $end
+$var reg 1 . IN_DATAMEMSEL $end
+$var reg 32 / IN_IMMEDIATE [31:0] $end
+$var reg 5 0 IN_INSTRUCTION [4:0] $end
+$var reg 32 1 IN_PC [31:0] $end
+$var reg 4 2 IN_READ_WRITE [3:0] $end
+$var reg 1 3 IN_REG_WRITE_EN $end
+$var reg 2 4 IN_WB_SEL [1:0] $end
+$var reg 1 5 RESET $end
+$scope module my_ex_mem_pipeline_reg $end
+$var wire 1 * BUSYWAIT $end
+$var wire 1 + CLK $end
+$var wire 32 6 IN_ALU_RESULT [31:0] $end
+$var wire 32 7 IN_DATA2 [31:0] $end
+$var wire 1 . IN_DATAMEMSEL $end
+$var wire 32 8 IN_IMMEDIATE [31:0] $end
+$var wire 5 9 IN_INSTRUCTION [4:0] $end
+$var wire 32 : IN_PC [31:0] $end
+$var wire 4 ; IN_READ_WRITE [3:0] $end
+$var wire 1 3 IN_REG_WRITE_EN $end
+$var wire 2 < IN_WB_SEL [1:0] $end
+$var wire 1 5 RESET $end
+$var reg 32 = OUT_ALU_RESULT [31:0] $end
+$var reg 32 > OUT_DATA2 [31:0] $end
+$var reg 1 ' OUT_DATAMEMSEL $end
+$var reg 32 ? OUT_IMMEDIATE [31:0] $end
+$var reg 5 @ OUT_INSTRUCTION [4:0] $end
+$var reg 32 A OUT_PC [31:0] $end
+$var reg 4 B OUT_READ_WRITE [3:0] $end
+$var reg 1 " OUT_REG_WRITE_EN $end
+$var reg 2 C OUT_WB_SEL [1:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx C
+bx B
+bx A
+bx @
+bx ?
+bx >
+bx =
+b11 <
+b1 ;
+b10111 :
+b1111 9
+b111000 8
+b100001 7
+b101101 6
+05
+b11 4
+13
+b1 2
+b10111 1
+b1111 0
+b111000 /
+1.
+b100001 -
+b101101 ,
+0+
+0*
+bx )
+bx (
+x'
+bx &
+bx %
+bx $
+bx #
+x"
+bx !
+$end
+#1
+15
+#4
+1+
+#6
+05
+#7
+b1 4
+b1 <
+b110010 /
+b110010 8
+b101000 -
+b101000 7
+b11110 ,
+b11110 6
+b10100 1
+b10100 :
+b1010 0
+b1010 9
+#8
+0+
+#12
+1"
+b1 !
+b1 C
+b1 #
+b1 B
+1'
+b110010 &
+b110010 ?
+b101000 (
+b101000 >
+b11110 )
+b11110 =
+b10100 $
+b10100 A
+b1010 %
+b1010 @
+1+
+#16
+03
+b11 4
+b11 <
+b11 2
+b11 ;
+0.
+b1011010 /
+b1011010 8
+b110010 -
+b110010 7
+b1010000 ,
+b1010000 6
+b1000110 1
+b1000110 :
+b11110 0
+b11110 9
+1*
+0+
+#20
+1+
+#24
+0+
+#28
+1+
+#32
+0+
+#36
+1+
+#40
+0+
+#44
+1+
+#48
+0+
+#52
+1+
+#56
+0+
+#60
+1+
+#64
+0+
+#68
+1+
+#72
+0+
+#76
+1+
+#80
+0+
+#84
+1+
+#88
+0+
+#92
+1+
+#96
+0+
+#100
+1+
+#104
+0+
+#108
+1+
+#112
+0+
+#116
+1+
+#120
+0+
+#123

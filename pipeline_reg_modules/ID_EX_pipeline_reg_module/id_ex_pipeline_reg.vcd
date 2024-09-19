@@ -1,0 +1,264 @@
+$date
+	Tue Aug 27 20:45:46 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module id_ex_pipeline_reg_tb $end
+$var wire 2 ! OUT_WB_SEL [1:0] $end
+$var wire 1 " OUT_REG_WRITE_EN $end
+$var wire 4 # OUT_READ_WRITE [3:0] $end
+$var wire 32 $ OUT_PC [31:0] $end
+$var wire 5 % OUT_INSTRUCTION [4:0] $end
+$var wire 32 & OUT_IMMEDIATE [31:0] $end
+$var wire 1 ' OUT_DATAMEMSEL $end
+$var wire 2 ( OUT_DATA2BJSEL [1:0] $end
+$var wire 2 ) OUT_DATA2ALUSEL [1:0] $end
+$var wire 32 * OUT_DATA2 [31:0] $end
+$var wire 2 + OUT_DATA1BJSEL [1:0] $end
+$var wire 2 , OUT_DATA1ALUSEL [1:0] $end
+$var wire 32 - OUT_DATA1 [31:0] $end
+$var wire 3 . OUT_BRANCH_JUMP [2:0] $end
+$var wire 5 / OUT_ALU_OP [4:0] $end
+$var reg 1 0 BUSYWAIT $end
+$var reg 1 1 CLK $end
+$var reg 5 2 IN_ALU_OP [4:0] $end
+$var reg 3 3 IN_BRANCH_JUMP [2:0] $end
+$var reg 32 4 IN_DATA1 [31:0] $end
+$var reg 2 5 IN_DATA1ALUSEL [1:0] $end
+$var reg 2 6 IN_DATA1BJSEL [1:0] $end
+$var reg 32 7 IN_DATA2 [31:0] $end
+$var reg 2 8 IN_DATA2ALUSEL [1:0] $end
+$var reg 2 9 IN_DATA2BJSEL [1:0] $end
+$var reg 1 : IN_DATAMEMSEL $end
+$var reg 32 ; IN_IMMEDIATE [31:0] $end
+$var reg 5 < IN_INSTRUCTION [4:0] $end
+$var reg 32 = IN_PC [31:0] $end
+$var reg 4 > IN_READ_WRITE [3:0] $end
+$var reg 1 ? IN_REG_WRITE_EN $end
+$var reg 2 @ IN_WB_SEL [1:0] $end
+$var reg 1 A RESET $end
+$scope module my_id_ex_pipeline_reg $end
+$var wire 1 0 BUSYWAIT $end
+$var wire 1 1 CLK $end
+$var wire 5 B IN_ALU_OP [4:0] $end
+$var wire 3 C IN_BRANCH_JUMP [2:0] $end
+$var wire 32 D IN_DATA1 [31:0] $end
+$var wire 2 E IN_DATA1ALUSEL [1:0] $end
+$var wire 2 F IN_DATA1BJSEL [1:0] $end
+$var wire 32 G IN_DATA2 [31:0] $end
+$var wire 2 H IN_DATA2ALUSEL [1:0] $end
+$var wire 2 I IN_DATA2BJSEL [1:0] $end
+$var wire 1 : IN_DATAMEMSEL $end
+$var wire 32 J IN_IMMEDIATE [31:0] $end
+$var wire 5 K IN_INSTRUCTION [4:0] $end
+$var wire 32 L IN_PC [31:0] $end
+$var wire 4 M IN_READ_WRITE [3:0] $end
+$var wire 1 ? IN_REG_WRITE_EN $end
+$var wire 2 N IN_WB_SEL [1:0] $end
+$var wire 1 A RESET $end
+$var reg 5 O OUT_ALU_OP [4:0] $end
+$var reg 3 P OUT_BRANCH_JUMP [2:0] $end
+$var reg 32 Q OUT_DATA1 [31:0] $end
+$var reg 2 R OUT_DATA1ALUSEL [1:0] $end
+$var reg 2 S OUT_DATA1BJSEL [1:0] $end
+$var reg 32 T OUT_DATA2 [31:0] $end
+$var reg 2 U OUT_DATA2ALUSEL [1:0] $end
+$var reg 2 V OUT_DATA2BJSEL [1:0] $end
+$var reg 1 ' OUT_DATAMEMSEL $end
+$var reg 32 W OUT_IMMEDIATE [31:0] $end
+$var reg 5 X OUT_INSTRUCTION [4:0] $end
+$var reg 32 Y OUT_PC [31:0] $end
+$var reg 4 Z OUT_READ_WRITE [3:0] $end
+$var reg 1 " OUT_REG_WRITE_EN $end
+$var reg 2 [ OUT_WB_SEL [1:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx [
+bx Z
+bx Y
+bx X
+bx W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
+b1 N
+b1 M
+b10111 L
+b1111 K
+b111000 J
+b1 I
+b1 H
+b100001 G
+b1 F
+b1 E
+b101101 D
+b10 C
+b1111 B
+0A
+b1 @
+0?
+b1 >
+b10111 =
+b1111 <
+b111000 ;
+1:
+b1 9
+b1 8
+b100001 7
+b1 6
+b1 5
+b101101 4
+b10 3
+b1111 2
+01
+00
+bx /
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+bx (
+x'
+bx &
+bx %
+bx $
+bx #
+x"
+bx !
+$end
+#1
+1A
+#4
+11
+#6
+0A
+#8
+01
+#12
+0"
+b1 !
+b1 [
+b1 #
+b1 Z
+1'
+b10 .
+b10 P
+b1111 /
+b1111 O
+b1 (
+b1 V
+b1 +
+b1 S
+b1 )
+b1 U
+b1 ,
+b1 R
+b111000 &
+b111000 W
+b100001 *
+b100001 T
+b101101 -
+b101101 Q
+b10111 $
+b10111 Y
+b1111 %
+b1111 X
+11
+#16
+b0 @
+b0 N
+b10 >
+b10 M
+0:
+b11 3
+b11 C
+b11110 2
+b11110 B
+b0 9
+b0 I
+b0 6
+b0 F
+b0 8
+b0 H
+b0 5
+b0 E
+b111111 7
+b111111 G
+b110111 4
+b110111 D
+b101011 =
+b101011 L
+b11001 <
+b11001 K
+10
+01
+#20
+11
+#24
+01
+#28
+11
+#32
+01
+#36
+11
+#40
+01
+#44
+11
+#48
+01
+#52
+11
+#56
+01
+#60
+11
+#64
+01
+#68
+11
+#72
+01
+#76
+11
+#80
+01
+#84
+11
+#88
+01
+#92
+11
+#96
+01
+#100
+11
+#104
+01
+#108
+11
+#112
+01
+#116
+11
+#120
+01
+#123

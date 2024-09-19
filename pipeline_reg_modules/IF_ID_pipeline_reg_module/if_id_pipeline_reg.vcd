@@ -1,0 +1,119 @@
+$date
+	Mon Aug 26 12:37:52 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module if_id_pipeline_reg_tb $end
+$var wire 32 ! OUT_PC [31:0] $end
+$var wire 32 " OUT_INSTRUCTION [31:0] $end
+$var reg 1 # BUSYWAIT $end
+$var reg 1 $ CLK $end
+$var reg 32 % IN_INSTRUCTION [31:0] $end
+$var reg 32 & IN_PC [31:0] $end
+$var reg 1 ' RESET $end
+$scope module my_if_id_pipeline_reg $end
+$var wire 1 # BUSYWAIT $end
+$var wire 1 $ CLK $end
+$var wire 32 ( IN_INSTRUCTION [31:0] $end
+$var wire 32 ) IN_PC [31:0] $end
+$var wire 1 ' RESET $end
+$var reg 32 * OUT_INSTRUCTION [31:0] $end
+$var reg 32 + OUT_PC [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx +
+bx *
+b10100 )
+b1010 (
+0'
+b10100 &
+b1010 %
+0$
+0#
+bx "
+bx !
+$end
+#1
+1'
+#4
+1$
+#6
+0'
+#8
+0$
+#12
+b1010 "
+b1010 *
+b10100 !
+b10100 +
+1$
+#16
+b1000110 &
+b1000110 )
+b111100 %
+b111100 (
+1#
+0$
+#20
+1$
+#24
+0$
+#28
+1$
+#32
+0$
+#36
+1$
+#40
+0$
+#44
+1$
+#48
+0$
+#52
+1$
+#56
+0$
+#60
+1$
+#64
+0$
+#68
+1$
+#72
+0$
+#76
+1$
+#80
+0$
+#84
+1$
+#88
+0$
+#92
+1$
+#96
+0$
+#100
+1$
+#104
+0$
+#108
+1$
+#112
+0$
+#116
+1$
+#120
+0$
+#123
