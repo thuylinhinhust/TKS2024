@@ -42,7 +42,7 @@ end
 
 // clock genaration.
 always begin
-    #4 CLK = ~CLK;
+    #10 CLK = ~CLK;
 end
 
 endmodule

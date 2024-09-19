@@ -17,7 +17,6 @@ module mem_wb_pipeline_reg(
     RESET,
     BUSYWAIT);
 
-    //declare the ports
     input [4:0] IN_INSTRUCTION;
     input [1:0] IN_WB_SEL;
     input [31:0] IN_PC_4, IN_ALU_RESULT, IN_IMMEDIATE, IN_DMEM_OUT;   
@@ -28,7 +27,6 @@ module mem_wb_pipeline_reg(
     output reg [31:0] OUT_PC_4, OUT_ALU_RESULT, OUT_IMMEDIATE, OUT_DMEM_OUT; 
     output reg OUT_REG_WRITE_EN;
 
-    //RESETTING output registers
     always @(RESET) begin
         if (RESET) begin
             OUT_INSTRUCTION = 5'dx;
@@ -41,8 +39,6 @@ module mem_wb_pipeline_reg(
         end
     end
 
-    //Writing the input values to the output registers, 
-    //when the RESET is low and when the CLOCK is at a positive edge and BUSYWAIT is low 
     always @(posedge CLK)
     begin    
         if (!RESET && !BUSYWAIT) begin

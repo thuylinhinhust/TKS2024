@@ -1,6 +1,5 @@
 module control_unit (OPCODE, FUNCT3, FUNCT7, OP1SEL_OUT, OP2SEL_OUT, REG_WRITE_EN_OUT, WB_SEL_OUT, ALUOP_OUT, BRANCH_JUMP_OUT, IMM_SEL_OUT, READ_WRITE_OUT);
 
-// declare ports
 input [6:0] OPCODE;
 input [2:0] FUNCT3;
 input [6:0] FUNCT7;

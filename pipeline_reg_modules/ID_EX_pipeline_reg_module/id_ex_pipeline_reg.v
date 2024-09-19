@@ -50,7 +50,6 @@ module id_ex_pipeline_reg(
     output reg [31:0] OUT_PC, OUT_DATA1, OUT_DATA2, OUT_IMMEDIATE; 
     output reg OUT_DATAMEMSEL, OUT_REG_WRITE_EN;
 
-    //RESETTING output registers
     always @(RESET) begin
         if (RESET) begin
             OUT_INSTRUCTION = 5'dx;
@@ -91,8 +90,6 @@ module id_ex_pipeline_reg(
         end
     end
     
-    //Writing the input values to the output registers, 
-    //when the RESET is low and when the CLOCK is at a positive edge and BUSYWAIT is low 
     always @(posedge CLK)
     begin
         if (!BUSYWAIT) begin

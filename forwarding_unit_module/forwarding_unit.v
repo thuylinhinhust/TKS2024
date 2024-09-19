@@ -3,7 +3,6 @@ module forwarding_unit (
     DATA1IDSEL, DATA2IDSEL, DATA1ALUSEL, DATA2ALUSEL, DATA1BJSEL, DATA2BJSEL, DATAMEMSEL
 );
 
-// Declaring input output ports
 input [4:0] ADDR1, ADDR2, WB_ADDR, MEM_ADDR, EXE_ADDR;
 input OP1SEL, OP2SEL;
 input [6:0] OPCODE;

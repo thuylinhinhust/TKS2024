@@ -8,13 +8,11 @@ module if_id_pipeline_reg(
     BUSYWAIT,
     PC_SEL);
 
-    //declare the ports
     input PC_SEL;
     input [31:0] IN_INSTRUCTION, IN_PC;
     input CLK, RESET, BUSYWAIT;
     output reg [31:0] OUT_INSTRUCTION, OUT_PC;
 
-    //RESETTING output registers
     always @(RESET) begin
         if (RESET) begin
             OUT_PC = 32'dx;
@@ -29,8 +27,6 @@ module if_id_pipeline_reg(
         end
     end
     
-    //Writing the input values to the output registers, 
-    //when the RESET is low and when the CLOCK is at a positive edge and BUSYWAIT is low 
     always @(posedge CLK)
     begin
         if (!BUSYWAIT) begin    

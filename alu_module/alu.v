@@ -2,13 +2,10 @@
 
 module alu (DATA1, DATA2, RESULT, SELECT);
 
-    // port declaration
     input [31:0] DATA1, DATA2;
     input [4:0] SELECT;     // func3: 3bits + func7[5] + func7[0]
     output reg [31:0] RESULT;
     
-
-    // alu intermediate results
     wire [31:0] ADD_RESULT,
                 SUB_RESULT,
                 SLL_RESULT,
@@ -28,7 +25,6 @@ module alu (DATA1, DATA2, RESULT, SELECT);
                 MULHSU_RESULT,
                 MULHU_RESULT;
 
-    //  --> should add proper delays 
     assign ADD_RESULT = DATA1 + DATA2;       // addition
     assign SUB_RESULT = DATA1 - DATA2;       // subtraction
 

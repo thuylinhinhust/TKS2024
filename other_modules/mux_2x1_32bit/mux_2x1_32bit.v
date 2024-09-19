@@ -1,13 +1,8 @@
 module mux_2x1_32bit (IN0, IN1, OUT, SELECT);
 
-    //declare the ports
     input [31:0] IN0, IN1;
     input SELECT;
     output reg [31:0] OUT;
-
-    // connect the relevent input to the output depending depending on the select
-    // TODO: Add delay to mux
-    // assign OUT = (SELECT==1'b1) ? IN1 : IN0;
     
     always @(SELECT or IN0 or IN1) begin
         case (SELECT)

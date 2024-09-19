@@ -21,7 +21,6 @@ module ex_mem_pipeline_reg(
     RESET,
     BUSYWAIT);
 
-    //declare the ports
     input [4:0] IN_INSTRUCTION;
     input [1:0] IN_WB_SEL;
     input [3:0] IN_READ_WRITE;
@@ -34,7 +33,6 @@ module ex_mem_pipeline_reg(
     output reg [31:0] OUT_PC, OUT_ALU_RESULT, OUT_DATA2, OUT_IMMEDIATE; 
     output reg OUT_DATAMEMSEL, OUT_REG_WRITE_EN;
 
-    //RESETTING output registers
     always @(RESET) begin
         if (RESET) begin
             OUT_INSTRUCTION = 5'dx;
@@ -49,8 +47,6 @@ module ex_mem_pipeline_reg(
         end
     end
 
-    //Writing the input values to the output registers, 
-    //when the RESET is low and when the CLOCK is at a positive edge and BUSYWAIT is low 
     always @(posedge CLK)
     begin
         if (!RESET && !BUSYWAIT) begin
