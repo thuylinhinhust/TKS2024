@@ -12,7 +12,7 @@ output reg BUSYWAIT, MEM_READ, MEM_WRITE;
 
 //create reg arrays in the cache
 //16 blocks with 16 bytes in each block
-reg [15:0][7:0] DATA [0:15];
+reg [7:0] DATA [0:15][0:15];
 reg [23:0] TAG [0:15];
 reg DIRTY [0:15];
 reg VALID [0:15];
@@ -184,7 +184,7 @@ begin
 end
 
 // sequential logic for state transitioning 
-always @(posedge CLK, negedge RESET)
+always @(posedge CLK, RESET)
 begin
     if (RESET)
         STATE <= IDLE;
@@ -195,7 +195,7 @@ end
 //reset the cache memory when the reset signal is high
 integer i;
 
-always @(posedge CLK, negedge RESET)
+always @(RESET)
 begin
     if (RESET)
     begin

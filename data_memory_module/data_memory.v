@@ -1,89 +1,68 @@
-module data_memory (CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+module data_memory (CLK, RESET, READ_WRITE_EN, ADDRESS, WRITEDATA, READDATA);
 
 input				CLK;
 input           	RESET;
-input           	READ;
-input           	WRITE;
-input [27:0]      	ADDRESS;
-input [127:0]     	WRITEDATA;
-output reg [127:0]	READDATA;
-output reg      	BUSYWAIT;
+input [3:0]         READ_WRITE_EN;  
+input [31:0]      	ADDRESS;
+input [31:0]     	WRITEDATA;
+output reg [31:0]	READDATA;
 
 //Declare memory array 524288x8-bits
 //512kByte
 reg [7:0] MEM_ARRAY [524287:0];
 
-integer i;
+wire [31:0] LW;
+wire [15:0] LH;
+wire [7:0] LB;
+wire LOAD_BYTE, LOAD_HALF, LOAD_WORD, LOAD_BYTE_U, LOAD_HALF_U, LOAD;
 
-//Detecting an incoming memory access
-reg READACCESS, WRITEACCESS;
+assign LW = {MEM_ARRAY[ADDRESS+3], MEM_ARRAY[ADDRESS+2], MEM_ARRAY[ADDRESS+1], MEM_ARRAY[ADDRESS]};
+assign LH = {MEM_ARRAY[ADDRESS+1], MEM_ARRAY[ADDRESS]};
+assign LB = MEM_ARRAY[ADDRESS];
 
-always @(READ or WRITE)
-begin
-	BUSYWAIT = (READ || WRITE)? 1 : 0;
-	READACCESS = (READ && !WRITE)? 1 : 0;
-	WRITEACCESS = (!READ && WRITE)? 1 : 0;
-end
+assign LOAD_BYTE = READ_WRITE_EN[3] & !READ_WRITE_EN[2] & !READ_WRITE_EN[1] & !READ_WRITE_EN[0];
+assign LOAD_HALF = READ_WRITE_EN[3] & !READ_WRITE_EN[2] & !READ_WRITE_EN[1] & READ_WRITE_EN[0];
+assign LOAD_WORD = READ_WRITE_EN[3] & !READ_WRITE_EN[2] & READ_WRITE_EN[1] & !READ_WRITE_EN[0];
+assign LOAD_BYTE_U = READ_WRITE_EN[3] & READ_WRITE_EN[2] & !READ_WRITE_EN[1] & !READ_WRITE_EN[0];
+assign LOAD_HALF_U = READ_WRITE_EN[3] & READ_WRITE_EN[2] & !READ_WRITE_EN[1] & READ_WRITE_EN[0];
+assign LOAD = LOAD_BYTE | LOAD_HALF | LOAD_WORD | LOAD_BYTE_U | LOAD_HALF_U;
 
-//Reading & writing
+//Read
 always @(posedge CLK)
 begin
-	if (READACCESS)
-	begin
-		READDATA[7:0]       <=  MEM_ARRAY[{ADDRESS,4'b0000}];
-		READDATA[15:8]      <=  MEM_ARRAY[{ADDRESS,4'b0001}];
-		READDATA[23:16]     <=  MEM_ARRAY[{ADDRESS,4'b0010}];
-		READDATA[31:24]     <=  MEM_ARRAY[{ADDRESS,4'b0011}];
-        READDATA[39:32]     <=  MEM_ARRAY[{ADDRESS,4'b0100}];
-		READDATA[47:40]     <=  MEM_ARRAY[{ADDRESS,4'b0101}];
-		READDATA[55:48]     <=  MEM_ARRAY[{ADDRESS,4'b0110}];
-		READDATA[63:56]     <=  MEM_ARRAY[{ADDRESS,4'b0111}];
-        READDATA[71:64]     <=  MEM_ARRAY[{ADDRESS,4'b1000}];
-		READDATA[79:72]     <=  MEM_ARRAY[{ADDRESS,4'b1001}];
-		READDATA[87:80]     <=  MEM_ARRAY[{ADDRESS,4'b1010}];
-		READDATA[95:88]     <=  MEM_ARRAY[{ADDRESS,4'b1011}];
-        READDATA[103:96]    <=  MEM_ARRAY[{ADDRESS,4'b1100}];
-		READDATA[111:104]   <=  MEM_ARRAY[{ADDRESS,4'b1101}];
-		READDATA[119:112]   <=  MEM_ARRAY[{ADDRESS,4'b1110}];
-		READDATA[127:120]   <=  MEM_ARRAY[{ADDRESS,4'b1111}];
-		BUSYWAIT = 0;
-		READACCESS = 0;
+	if (~LOAD) READDATA <= 32'b0;
+	else begin
+		case (READ_WRITE_EN[2:0])
+		3'b000: READDATA <= {{24{LB[7]}},LB};
+		3'b001: READDATA <= {{16{LH[15]}},LH};
+		3'b010: READDATA <= LW;
+		3'b100: READDATA <= {{24{1'b0}},LB};
+		3'b101: READDATA <= {{16{1'b0}},LH};
+		endcase
 	end
+end
 
-	if (WRITEACCESS)
-	begin
-        MEM_ARRAY[{ADDRESS,4'b0000}] <=  WRITEDATA[7:0];
-		MEM_ARRAY[{ADDRESS,4'b0001}] <=  WRITEDATA[15:8];
-		MEM_ARRAY[{ADDRESS,4'b0010}] <=  WRITEDATA[23:16];
-		MEM_ARRAY[{ADDRESS,4'b0011}] <=  WRITEDATA[31:24];
-        MEM_ARRAY[{ADDRESS,4'b0100}] <=  WRITEDATA[39:32];
-		MEM_ARRAY[{ADDRESS,4'b0101}] <=  WRITEDATA[47:40];
-		MEM_ARRAY[{ADDRESS,4'b0110}] <=  WRITEDATA[55:48];
-		MEM_ARRAY[{ADDRESS,4'b0111}] <=  WRITEDATA[63:56];
-        MEM_ARRAY[{ADDRESS,4'b1000}] <=  WRITEDATA[71:64];
-		MEM_ARRAY[{ADDRESS,4'b1001}] <=  WRITEDATA[79:72];
-		MEM_ARRAY[{ADDRESS,4'b1010}] <=  WRITEDATA[87:80];
-		MEM_ARRAY[{ADDRESS,4'b1011}] <=  WRITEDATA[95:88];
-        MEM_ARRAY[{ADDRESS,4'b1100}] <=  WRITEDATA[103:96];
-		MEM_ARRAY[{ADDRESS,4'b1101}] <=  WRITEDATA[111:104];
-		MEM_ARRAY[{ADDRESS,4'b1110}] <=  WRITEDATA[119:112];
-		MEM_ARRAY[{ADDRESS,4'b1111}] <=  WRITEDATA[127:120];
-		BUSYWAIT = 0;
-		WRITEACCESS = 0;
+//Write
+always @(posedge CLK)
+begin
+	if (READ_WRITE_EN[3]) begin
+		case (READ_WRITE_EN[2:0])
+		3'b011: MEM_ARRAY[ADDRESS] <= WRITEDATA[7:0];
+		3'b110: {MEM_ARRAY[ADDRESS+1], MEM_ARRAY[ADDRESS]} <= WRITEDATA[15:0];
+		3'b111: {MEM_ARRAY[ADDRESS+3], MEM_ARRAY[ADDRESS+2], MEM_ARRAY[ADDRESS+1], MEM_ARRAY[ADDRESS]} <= WRITEDATA;
+	    endcase
 	end
 end
 
 //Reset memory
-always @(posedge RESET)
+integer i;
+
+always @(posedge CLK or posedge RESET)
 begin
     if (RESET)
     begin
         for (i = 0; i < 524288; i = i + 1)
-            MEM_ARRAY[i] = 8'b0;
-        
-        BUSYWAIT = 0;
-		READACCESS = 0;
-		WRITEACCESS = 0;
+            MEM_ARRAY[i] <= 8'b0;
     end
 end
 

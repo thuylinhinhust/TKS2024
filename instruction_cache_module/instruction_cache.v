@@ -33,12 +33,12 @@ assign TAG_OUT = TAG[ADDRESS[6:4]];
 //tag compare and determining the hit status
 wire TAG_STATUS, HIT;
 assign TAG_STATUS = (TAG_OUT == ADDRESS[31:7]) ? 1 : 0;
-assign HIT = VALID_OUT && TAG_STATUS;
+assign HIT = VALID_OUT & TAG_STATUS;
 
 //clear busywait at positive clock edge and when there is a hit
 always @(posedge CLK)
 begin
-    if (HIT) BUSYWAIT <= 0;
+    if (HIT==1) BUSYWAIT <= 0;
 end
 
 //select data from offsets if it is a hit else send dont care to the CPU
@@ -113,7 +113,7 @@ begin
 end
 
 // sequential logic for state transitioning 
-always @(posedge CLK, posedge RESET)
+always @(posedge CLK, negedge RESET)
 begin
     if (RESET)
         STATE <= IDLE;
@@ -124,7 +124,7 @@ end
 //reset the cache memory when the reset signal is high
 integer i;
 
-always @(RESET)
+always @(posedge CLK, negedge RESET)
 begin
     if (RESET)
     begin

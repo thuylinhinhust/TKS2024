@@ -1,8 +1,8 @@
-module adder_32bit (IN1, OUT);
+module adder_32bit (IN, OUT);
 
-    input [31:0] IN1;
+    input [31:0] IN;
     output [31:0] OUT;
 
-    assign OUT = IN1 + 32'd4;
+    assign OUT = IN + 32'd4;
 
 endmodule
