@@ -13,6 +13,7 @@
 `include "../pipeline_reg_modules/MEM_WB_pipeline_reg_module/mem_wb_pipeline_reg.v"
 `include "../forwarding_unit_module/forwarding_unit.v"
 `include "../stall_module/stall.v"
+`include "../compress_decoder_module/compress_decoder.v"
 
 module cpu_pipeline (RESET, CLK, INST_MEM_READDATA, DATA_MEM_READDATA, DATA_MEM_WRITEDATA, INST_MEM_ADDRESS, DATA_MEM_ADDRESS, READ_WRITE_EN);
 
@@ -24,7 +25,7 @@ output [31:0] INST_MEM_ADDRESS;
 output [31:0] DATA_MEM_ADDRESS;
 output [3:0] READ_WRITE_EN;
 
-wire [31:0] PC_4_OUT, ALU_OUT, PC_SEL_MUX_OUT, INSTRUCTION_ID, PC_OUT_ID, WB_MUX_OUT, REG_FILE_OUT1, REG_FILE_OUT2, IMM_GEN_OUT, PC_OUT_EX, REG_FILE_OUT1_EX, REG_FILE_OUT2_EX, IMM_GEN_OUT_EX, OPERAND1, OPERAND2, PC_OUT_MEM, ALU_OUT_MEM, IMM_GEN_OUT_MEM, PC_4_WB_OUT, PC_4_WB_OUT_WB, ALU_OUT_WB, IMM_GEN_OUT_WB,  READDATA_WB;
+wire [31:0] PC_4_OUT, ALU_OUT, PC_SEL_MUX_OUT, INSTRUCTION_IF, INSTRUCTION_ID, PC_OUT_ID, WB_MUX_OUT, REG_FILE_OUT1, REG_FILE_OUT2, IMM_GEN_OUT, PC_OUT_EX, REG_FILE_OUT1_EX, REG_FILE_OUT2_EX, IMM_GEN_OUT_EX, OPERAND1, OPERAND2, PC_OUT_MEM, ALU_OUT_MEM, IMM_GEN_OUT_MEM, PC_4_WB_OUT, PC_4_WB_OUT_WB, ALU_OUT_WB, IMM_GEN_OUT_WB,  READDATA_WB;
 wire PC_SEL, REG_WRITE_EN_WB, WRITE_ENABLE, OP1SEL, OP2SEL, REG_WRITE_EN, REG_WRITE_EN_EX, REG_WRITE_EN_MEM;
 wire [4:0] WRITE_ADDRESS_WB, WRITE_ADDRESS_EX, WRITE_ADDRESS_MEM;
 wire [2:0] IMM_SEL, BRANCH_JUMP, BRANCH_JUMP_EX;
@@ -39,6 +40,7 @@ wire [31:0] MUX_EX_BJ1_OUT, MUX_EX_BJ2_OUT;
 wire [31:0] MUX_EX_OUT, MUX_EX_OUT_MEM;
 wire [31:0] MUX_MEM_OUT;
 wire STALL;
+wire COMPRESS_INSTR, ILLEGAL_INSTR;
 
 assign WRITE_ENABLE = REG_WRITE_EN_WB;
 assign DATA_MEM_ADDRESS = ALU_OUT_MEM;
@@ -64,17 +66,27 @@ adder_32bit pc_4_adder (
     .OUT (PC_4_OUT)
 );
 
+compress_decoder comp_decode (
+    .instr_i (INST_MEM_READDATA),
+    .instr_o (INSTRUCTION_IF),
+    .is_compressed_o (COMPRESS_INSTR),
+    .illegal_instr_o (ILLEGAL_INSTR)
+);
+
 if_id_pipeline_reg if_id_reg (
-    .IN_INSTRUCTION (INST_MEM_READDATA),
+    .IN_INSTRUCTION (INSTRUCTION_IF),
     .IN_PC (INST_MEM_ADDRESS),
+    .IN_COMPRESS (COMPRESS_INSTR), 
+    .IN_ILLEGAL (ILLEGAL_INSTR),
     .OUT_INSTRUCTION (INSTRUCTION_ID),
     .OUT_PC (PC_OUT_ID),
+    .OUT_COMPRESS (), 
+    .OUT_ILLEGAL (),
     .CLK (CLK),
     .RESET (RESET),
     .PC_SEL (PC_SEL),
     .ENA (~STALL)
 );
-
 
 // Instruction decode stage
 reg_file register_file (
