@@ -12,6 +12,7 @@
 `include "../pipeline_reg_modules/IF_ID_pipeline_reg_module/if_id_pipeline_reg.v"
 `include "../pipeline_reg_modules/MEM_WB_pipeline_reg_module/mem_wb_pipeline_reg.v"
 `include "../forwarding_unit_module/forwarding_unit.v"
+`include "../stall_module/stall.v"
 
 module cpu_pipeline (RESET, CLK, INST_MEM_READDATA, DATA_MEM_READDATA, DATA_MEM_WRITEDATA, INST_MEM_ADDRESS, DATA_MEM_ADDRESS, READ_WRITE_EN);
 
@@ -37,6 +38,7 @@ wire [31:0] DATA1_ID, DATA2_ID;
 wire [31:0] MUX_EX_BJ1_OUT, MUX_EX_BJ2_OUT;
 wire [31:0] MUX_EX_OUT, MUX_EX_OUT_MEM;
 wire [31:0] MUX_MEM_OUT;
+wire STALL;
 
 assign WRITE_ENABLE = REG_WRITE_EN_WB;
 assign DATA_MEM_ADDRESS = ALU_OUT_MEM;
@@ -53,7 +55,8 @@ register_32bit program_counter (
     .IN (PC_SEL_MUX_OUT),
     .OUT (INST_MEM_ADDRESS),
     .RESET (RESET),
-    .CLK (CLK)
+    .CLK (CLK),
+    .ENA (~STALL)
 );
 
 adder_32bit pc_4_adder (
@@ -68,7 +71,8 @@ if_id_pipeline_reg if_id_reg (
     .OUT_PC (PC_OUT_ID),
     .CLK (CLK),
     .RESET (RESET),
-    .PC_SEL (PC_SEL)
+    .PC_SEL (PC_SEL),
+    .ENA (~STALL)
 );
 
 
@@ -95,14 +99,14 @@ control_unit ctrl_unit ( //doc lai sau
     .OPCODE (INSTRUCTION_ID[6:0]),
     .FUNCT3 (INSTRUCTION_ID[14:12]),
     .FUNCT7 (INSTRUCTION_ID[31:25]),
-    .OP1SEL_OUT (OP1SEL),
-    .OP2SEL_OUT (OP2SEL),
-    .REG_WRITE_EN_OUT (REG_WRITE_EN),
-    .WB_SEL_OUT (WB_SEL),
-    .ALUOP_OUT (ALUOP), 
-    .BRANCH_JUMP_OUT (BRANCH_JUMP), 
-    .IMM_SEL_OUT (IMM_SEL), 
-    .READ_WRITE_OUT (READ_WRITE)
+    .OP1SEL (OP1SEL),
+    .OP2SEL (OP2SEL),
+    .REG_WRITE_EN (REG_WRITE_EN),
+    .WB_SEL (WB_SEL),
+    .ALUOP (ALUOP), 
+    .BRANCH_JUMP (BRANCH_JUMP), 
+    .IMM_SEL (IMM_SEL), 
+    .READ_WRITE (READ_WRITE)
 );
 
 forwarding_unit fwd_unit ( //doc lai sau
@@ -121,6 +125,15 @@ forwarding_unit fwd_unit ( //doc lai sau
     .DATA1BJSEL (DATA1BJSEL), 
     .DATA2BJSEL (DATA2BJSEL),
     .DATAMEMSEL (DATAMEMSEL)
+);
+
+stall stall_unit ( 
+    .OPCODE (INSTRUCTION_ID[6:0]),
+    .ADDR1 (INSTRUCTION_ID[19:15]),
+    .ADDR2 (INSTRUCTION_ID[24:20]),
+    .EXE_ADDR (WRITE_ADDRESS_EX),
+    .READ_WRITE (READ_WRITE_EX),
+    .STALL (STALL)
 );
 
 mux_2x1_32bit mux_id_1 (
@@ -170,7 +183,8 @@ id_ex_pipeline_reg id_ex_reg (
     .OUT_REG_WRITE_EN (REG_WRITE_EN_EX),
     .CLK (CLK), 
     .RESET (RESET),
-    .PC_SEL (PC_SEL)
+    .PC_SEL (PC_SEL),
+    .FLUSH_E (STALL)
 );
 
 // Instruction execution stage

@@ -41,7 +41,7 @@ module immediate_generate (IN, OUT, IMM_SEL);
     assign I_SIGN_OUT[11:0] = IN[24:13] ;
     assign I_SIGN_OUT[31:12] = {20{IN[24]}};
 
-    //IU --> unsigned extend Immediate
+    //IU --> unsigned extend Immediate -> SLTIU
     assign I_UNSIGN_OUT[11:0] = IN[24:13] ;
     assign I_UNSIGN_OUT[31:12] = {20{1'b0}};
 

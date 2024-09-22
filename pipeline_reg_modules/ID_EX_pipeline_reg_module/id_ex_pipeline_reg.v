@@ -31,9 +31,10 @@ module id_ex_pipeline_reg(
     OUT_REG_WRITE_EN,
     CLK, 
     RESET,
-    PC_SEL);
+    PC_SEL,
+    FLUSH_E);
 
-    input CLK, RESET, PC_SEL;
+    input CLK, RESET, PC_SEL, FLUSH_E;
     input [4:0] IN_ALU_OP, IN_INSTRUCTION;
     input [2:0] IN_BRANCH_JUMP;
     input [1:0] IN_WB_SEL, IN_DATA1ALUSEL, IN_DATA2ALUSEL, IN_DATA1BJSEL, IN_DATA2BJSEL;
@@ -50,38 +51,38 @@ module id_ex_pipeline_reg(
 
     always @(posedge CLK or posedge RESET) begin
         if (RESET) begin
-            OUT_INSTRUCTION <= 5'dx;
-            OUT_PC <= 32'dx;
-            OUT_DATA1 <= 32'dx;
-            OUT_DATA2 <= 32'dx;
-            OUT_IMMEDIATE <= 32'dx;
-            OUT_DATA1ALUSEL <= 2'dx;
-            OUT_DATA2ALUSEL <= 2'dx;
-            OUT_DATA1BJSEL <= 2'dx;
-            OUT_DATA2BJSEL <= 2'dx;
-            OUT_ALU_OP <= 5'dx;
-            OUT_BRANCH_JUMP <= 3'dx;
-            OUT_DATAMEMSEL <= 1'dx;
-            OUT_READ_WRITE <= 4'dx;
-            OUT_WB_SEL <= 2'dx;
-            OUT_REG_WRITE_EN <= 1'dx;
+            OUT_INSTRUCTION <= 5'b0;
+            OUT_PC <= 32'b0;
+            OUT_DATA1 <= 32'b0;
+            OUT_DATA2 <= 32'b0;
+            OUT_IMMEDIATE <= 32'b0;
+            OUT_DATA1ALUSEL <= 2'bx;
+            OUT_DATA2ALUSEL <= 2'bx;
+            OUT_DATA1BJSEL <= 2'bx;
+            OUT_DATA2BJSEL <= 2'bx;
+            OUT_ALU_OP <= 5'bx;
+            OUT_BRANCH_JUMP <= 3'bx;
+            OUT_DATAMEMSEL <= 1'bx;
+            OUT_READ_WRITE <= 4'bx;
+            OUT_WB_SEL <= 2'bx;
+            OUT_REG_WRITE_EN <= 1'bx;
         end
-        else if (PC_SEL) begin
-            OUT_INSTRUCTION <= 5'dx;
-            OUT_PC <= 32'dx;
-            OUT_DATA1 <= 32'dx;
-            OUT_DATA2 <= 32'dx;
-            OUT_IMMEDIATE <= 32'dx;
-            OUT_DATA1ALUSEL <= 2'dx;
-            OUT_DATA2ALUSEL <= 2'dx;
-            OUT_DATA1BJSEL <= 2'dx;
-            OUT_DATA2BJSEL <= 2'dx;
-            OUT_ALU_OP <= 5'dx;
-            OUT_BRANCH_JUMP <= 3'dx;
-            OUT_DATAMEMSEL <= 1'dx;
-            OUT_READ_WRITE <= 4'dx;
-            OUT_WB_SEL <= 2'dx;
-            OUT_REG_WRITE_EN <= 1'dx;
+        else if (PC_SEL || FLUSH_E) begin
+            OUT_INSTRUCTION <= 5'b0;
+            OUT_PC <= 32'b0;
+            OUT_DATA1 <= 32'b0;
+            OUT_DATA2 <= 32'b0;
+            OUT_IMMEDIATE <= 32'b0;
+            OUT_DATA1ALUSEL <= 2'bx;
+            OUT_DATA2ALUSEL <= 2'bx;
+            OUT_DATA1BJSEL <= 2'bx;
+            OUT_DATA2BJSEL <= 2'bx;
+            OUT_ALU_OP <= 5'bx;
+            OUT_BRANCH_JUMP <= 3'bx;
+            OUT_DATAMEMSEL <= 1'bx;
+            OUT_READ_WRITE <= 4'bx;
+            OUT_WB_SEL <= 2'bx;
+            OUT_REG_WRITE_EN <= 1'bx;
         end
         else begin
             OUT_INSTRUCTION <= IN_INSTRUCTION;

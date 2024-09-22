@@ -47,7 +47,11 @@ initial begin
     for(j = 0; j < 112; j = j + 1) $dumpvars(0, d_mem.MEM_ARRAY[j]);
 
     CLK = 1'b0;
+    RESET = 1'b0;
+
+    #5;
     RESET = 1'b1;
+
     #5;
     RESET = 1'b0;
     

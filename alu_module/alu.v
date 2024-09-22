@@ -74,8 +74,7 @@ module alu (DATA1, DATA2, RESULT, SELECT);
             `REM : RESULT = REM_RESULT; 
             `REMU: RESULT = REMU_RESULT; 
                 
-            default:  RESULT = 0 ;  
-                                
+            default:  RESULT = 0 ;              
         endcase
     end
 

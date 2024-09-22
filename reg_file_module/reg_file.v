@@ -15,7 +15,7 @@ module reg_file (WRITE_DATA, DATA1, DATA2, WRITE_ADDRESS, DATA1_ADDRESS, DATA2_A
     always @(posedge CLK or posedge RESET) begin
         if (RESET) begin  
             for (i = 0; i < 32; i = i + 1)
-                REGISTER[i] <= 32'd0;
+                REGISTER[i] <= 32'b0;
         end
         else if (WRITE_ENABLE && (WRITE_ADDRESS != 0)) begin
             REGISTER[WRITE_ADDRESS] <= WRITE_DATA;
