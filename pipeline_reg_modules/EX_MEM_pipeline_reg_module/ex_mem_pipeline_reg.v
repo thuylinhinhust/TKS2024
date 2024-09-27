@@ -18,13 +18,13 @@ module ex_mem_pipeline_reg(
     OUT_WB_SEL,
     OUT_REG_WRITE_EN,
     CLK, 
-    RESET);
+    RST_N);
 
     input [4:0] IN_INSTRUCTION;
     input [1:0] IN_WB_SEL;
     input [3:0] IN_READ_WRITE;
     input [31:0] IN_PC, IN_ALU_RESULT, IN_DATA2, IN_IMMEDIATE;   
-    input IN_DATAMEMSEL, IN_REG_WRITE_EN, CLK, RESET;
+    input IN_DATAMEMSEL, IN_REG_WRITE_EN, CLK, RST_N;
 
     output reg [4:0] OUT_INSTRUCTION;
     output reg [1:0] OUT_WB_SEL;
@@ -32,8 +32,8 @@ module ex_mem_pipeline_reg(
     output reg [31:0] OUT_PC, OUT_ALU_RESULT, OUT_DATA2, OUT_IMMEDIATE; 
     output reg OUT_DATAMEMSEL, OUT_REG_WRITE_EN;
 
-    always @(posedge CLK or posedge RESET) begin
-        if (RESET) begin
+    always @(posedge CLK or negedge RST_N) begin
+        if (!RST_N) begin
             OUT_INSTRUCTION <= 5'b0;
             OUT_PC <= 32'b0;
             OUT_ALU_RESULT <= 32'b0;

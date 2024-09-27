@@ -14,20 +14,20 @@ module mem_wb_pipeline_reg(
     OUT_WB_SEL,
     OUT_REG_WRITE_EN,
     CLK, 
-    RESET);
+    RST_N);
 
     input [4:0] IN_INSTRUCTION;
     input [1:0] IN_WB_SEL;
     input [31:0] IN_PC_4, IN_ALU_RESULT, IN_IMMEDIATE, IN_DMEM_OUT;   
-    input IN_REG_WRITE_EN, CLK, RESET;
+    input IN_REG_WRITE_EN, CLK, RST_N;
 
     output reg [4:0] OUT_INSTRUCTION;
     output reg [1:0] OUT_WB_SEL;
     output reg [31:0] OUT_PC_4, OUT_ALU_RESULT, OUT_IMMEDIATE, OUT_DMEM_OUT; 
     output reg OUT_REG_WRITE_EN;
 
-    always @(posedge CLK or posedge RESET) begin
-        if (RESET) begin
+    always @(posedge CLK or negedge RST_N) begin
+        if (!RST_N) begin
             OUT_INSTRUCTION <= 5'b0;
             OUT_PC_4 <= 32'b0;
             OUT_ALU_RESULT <= 32'b0;

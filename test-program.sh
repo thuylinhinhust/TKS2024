@@ -15,11 +15,11 @@ gcc RV32IMAssembler.c -o RV32IMAssembler.out
 
 ./RV32IMAssembler.out ../$1
 
-cd ../instruction_memory_module
+cd ../peripheral
 
 # # remove old instr_mem.mem and create new one to store instruction memory content
-rm -f instr_mem.mem
-touch instr_mem.mem
+rm -f ram.vmem
+touch ram.vmem
 
 # # generate instruction memory content to be loaded into instr_mem array in Verilog (inside cpu.v)
 while read line
@@ -30,7 +30,7 @@ do
     byte2=$(echo $line | cut -c9-16)
     byte1=$(echo $line | cut -c17-24)
     byte0=$(echo $line | cut -c25-32)
-    echo $byte0" "$byte1" "$byte2" "$byte3 >> instr_mem.mem
+    echo $byte3" "$byte2" "$byte1" "$byte0 >> ram.vmem
 
 done < "../program.machine"
 
@@ -39,7 +39,7 @@ echo ""
 
 cd ../scripts
 
-./test-cpu-pipeline.sh
+./test-ibex-DMS.sh
 
 cd ..
 

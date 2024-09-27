@@ -30,11 +30,11 @@ module id_ex_pipeline_reg(
     OUT_WB_SEL,
     OUT_REG_WRITE_EN,
     CLK, 
-    RESET,
+    RST_N,
     PC_SEL,
     FLUSH_E);
 
-    input CLK, RESET, PC_SEL, FLUSH_E;
+    input CLK, RST_N, PC_SEL, FLUSH_E;
     input [4:0] IN_ALU_OP, IN_INSTRUCTION;
     input [2:0] IN_BRANCH_JUMP;
     input [1:0] IN_WB_SEL, IN_DATA1ALUSEL, IN_DATA2ALUSEL, IN_DATA1BJSEL, IN_DATA2BJSEL;
@@ -49,8 +49,8 @@ module id_ex_pipeline_reg(
     output reg [31:0] OUT_PC, OUT_DATA1, OUT_DATA2, OUT_IMMEDIATE; 
     output reg OUT_DATAMEMSEL, OUT_REG_WRITE_EN;
 
-    always @(posedge CLK or posedge RESET) begin
-        if (RESET) begin
+    always @(posedge CLK or negedge RST_N) begin
+        if (!RST_N) begin
             OUT_INSTRUCTION <= 5'b0;
             OUT_PC <= 32'b0;
             OUT_DATA1 <= 32'b0;

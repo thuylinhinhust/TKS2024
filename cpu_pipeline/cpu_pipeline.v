@@ -14,24 +14,41 @@
 `include "../forwarding_unit_module/forwarding_unit.v"
 `include "../stall_module/stall.v"
 `include "../compress_decoder_module/compress_decoder.v"
+`include "../interface_imem/interface_imem.v"
+`include "../load_store_unit/load_store_unit.v"
 
-module cpu_pipeline (RESET, CLK, INST_MEM_READDATA, DATA_MEM_READDATA, DATA_MEM_WRITEDATA, INST_MEM_ADDRESS, DATA_MEM_ADDRESS, READ_WRITE_EN);
+module cpu_pipeline (CLK, RST_N, test_en_i, ram_cfg_i, hart_id_i, boot_addr_i, 
+                     instr_req_o, instr_gnt_i, instr_rvalid_i, instr_addr_o, instr_rdata_i,
+                     instr_rdata_intg_i, instr_err_i, data_req_o, data_gnt_i,
+                     data_rvalid_i, data_we_o, data_be_o, data_addr_o, data_wdata_o,
+                     data_wdata_intg_o, data_rdata_i, data_rdata_intg_i, data_err_i);
 
-input RESET, CLK;
-input [31:0] INST_MEM_READDATA; 
-input [31:0] DATA_MEM_READDATA;
-output [31:0] DATA_MEM_WRITEDATA;
-output [31:0] INST_MEM_ADDRESS; 
-output [31:0] DATA_MEM_ADDRESS;
-output [3:0] READ_WRITE_EN;
+input CLK, RST_N;
+input test_en_i, ram_cfg_i;
+input [31:0] hart_id_i, boot_addr_i;
 
-wire [31:0] PC_4_OUT, ALU_OUT, PC_SEL_MUX_OUT, INSTRUCTION_IF, INSTRUCTION_ID, PC_OUT_ID, WB_MUX_OUT, REG_FILE_OUT1, REG_FILE_OUT2, IMM_GEN_OUT, PC_OUT_EX, REG_FILE_OUT1_EX, REG_FILE_OUT2_EX, IMM_GEN_OUT_EX, OPERAND1, OPERAND2, PC_OUT_MEM, ALU_OUT_MEM, IMM_GEN_OUT_MEM, PC_4_WB_OUT, PC_4_WB_OUT_WB, ALU_OUT_WB, IMM_GEN_OUT_WB,  READDATA_WB;
+input instr_gnt_i, instr_rvalid_i, instr_err_i;
+input [31:0] instr_rdata_i;
+input [6:0] instr_rdata_intg_i;
+output instr_req_o;
+output [31:0] instr_addr_o;
+
+input data_gnt_i, data_rvalid_i, data_err_i;
+input [31:0] data_rdata_i;
+input [6:0] data_rdata_intg_i;
+output data_req_o, data_we_o;
+output [3:0] data_be_o;
+output [31:0] data_addr_o;
+output [31:0] data_wdata_o;
+output [6:0] data_wdata_intg_o;
+
+wire [31:0] PC_4_OUT, ALU_OUT, PC_SEL_MUX_OUT, INSTRUCTION, INSTRUCTION_IF, INSTRUCTION_ID, PC_OUT_ID, WB_MUX_OUT, REG_FILE_OUT1, REG_FILE_OUT2, IMM_GEN_OUT, PC_OUT_EX, REG_FILE_OUT1_EX, REG_FILE_OUT2_EX, IMM_GEN_OUT_EX, OPERAND1, OPERAND2, PC_OUT_MEM, ALU_OUT_MEM, IMM_GEN_OUT_MEM, PC_4_WB_OUT, PC_4_WB_OUT_WB, ALU_OUT_WB, IMM_GEN_OUT_WB, READDATA_WB;
 wire PC_SEL, REG_WRITE_EN_WB, WRITE_ENABLE, OP1SEL, OP2SEL, REG_WRITE_EN, REG_WRITE_EN_EX, REG_WRITE_EN_MEM;
 wire [4:0] WRITE_ADDRESS_WB, WRITE_ADDRESS_EX, WRITE_ADDRESS_MEM;
 wire [2:0] IMM_SEL, BRANCH_JUMP, BRANCH_JUMP_EX;
 wire [1:0] WB_SEL, WB_SEL_EX, WB_SEL_MEM, WB_SEL_WB;
 wire [4:0] ALUOP, ALUOP_EX;
-wire [3:0] READ_WRITE, READ_WRITE_EX;
+wire [3:0] READ_WRITE, READ_WRITE_EX, READ_WRITE_EN;
 wire DATA1IDSEL, DATA2IDSEL, DATAMEMSEL, DATAMEMSEL_EX , DATAMEMSEL_MEM;
 wire [1:0] DATA1ALUSEL, DATA2ALUSEL, DATA1BJSEL, DATA2BJSEL;
 wire [1:0] DATA1ALUSEL_EX, DATA2ALUSEL_EX, DATA1BJSEL_EX, DATA2BJSEL_EX;
@@ -41,9 +58,10 @@ wire [31:0] MUX_EX_OUT, MUX_EX_OUT_MEM;
 wire [31:0] MUX_MEM_OUT;
 wire STALL;
 wire COMPRESS_INSTR, ILLEGAL_INSTR;
+wire PC_ADDRESS;
+wire [31:0] lsu_wdata, lsu_rdata;
 
 assign WRITE_ENABLE = REG_WRITE_EN_WB;
-assign DATA_MEM_ADDRESS = ALU_OUT_MEM;
 
 // Instruction fetch stage
 mux_2x1_32bit pc_sel_mux (
@@ -55,19 +73,31 @@ mux_2x1_32bit pc_sel_mux (
 
 register_32bit program_counter (
     .IN (PC_SEL_MUX_OUT),
-    .OUT (INST_MEM_ADDRESS),
-    .RESET (RESET),
+    .OUT (PC_ADDRESS),
+    .RST_N (RST_N),
     .CLK (CLK),
     .ENA (~STALL)
 );
 
 adder_32bit pc_4_adder (
-    .IN (INST_MEM_ADDRESS),
+    .IN (PC_ADDRESS),
     .OUT (PC_4_OUT)
 );
 
+interface_imem imem (
+    .PC (PC_ADDRESS),
+    .instruction (INSTRUCTION),
+    .instr_req_o (instr_req_o),
+    .instr_gnt_i (instr_gnt_i),
+    .instr_rvalid_i (instr_rvalid_i),
+    .instr_addr_o (instr_addr_o),
+    .instr_rdata_i (instr_rdata_i),
+    .instr_rdata_intg_i (instr_rdata_intg_i),
+    .instr_err_i (instr_err_i)
+);
+
 compress_decoder comp_decode (
-    .instr_i (INST_MEM_READDATA),
+    .instr_i (INSTRUCTION),
     .instr_o (INSTRUCTION_IF),
     .is_compressed_o (COMPRESS_INSTR),
     .illegal_instr_o (ILLEGAL_INSTR)
@@ -75,7 +105,7 @@ compress_decoder comp_decode (
 
 if_id_pipeline_reg if_id_reg (
     .IN_INSTRUCTION (INSTRUCTION_IF),
-    .IN_PC (INST_MEM_ADDRESS),
+    .IN_PC (PC_ADDRESS),
     .IN_COMPRESS (COMPRESS_INSTR), 
     .IN_ILLEGAL (ILLEGAL_INSTR),
     .OUT_INSTRUCTION (INSTRUCTION_ID),
@@ -83,7 +113,7 @@ if_id_pipeline_reg if_id_reg (
     .OUT_COMPRESS (), 
     .OUT_ILLEGAL (),
     .CLK (CLK),
-    .RESET (RESET),
+    .RST_N (RST_N),
     .PC_SEL (PC_SEL),
     .ENA (~STALL)
 );
@@ -98,7 +128,7 @@ reg_file register_file (
     .DATA2_ADDRESS (INSTRUCTION_ID[24:20]),
     .WRITE_ENABLE (WRITE_ENABLE),
     .CLK (CLK),
-    .RESET (RESET)
+    .RST_N (RST_N)
 );
 
 immediate_generate imm_gen (
@@ -194,7 +224,7 @@ id_ex_pipeline_reg id_ex_reg (
     .OUT_WB_SEL (WB_SEL_EX),
     .OUT_REG_WRITE_EN (REG_WRITE_EN_EX),
     .CLK (CLK), 
-    .RESET (RESET),
+    .RST_N (RST_N),
     .PC_SEL (PC_SEL),
     .FLUSH_E (STALL)
 );
@@ -279,7 +309,7 @@ ex_mem_pipeline_reg ex_mem_reg (
     .OUT_WB_SEL (WB_SEL_MEM),
     .OUT_REG_WRITE_EN (REG_WRITE_EN_MEM),
     .CLK (CLK), 
-    .RESET (RESET)
+    .RST_N (RST_N)
 );
 
 // Memory stage
@@ -291,8 +321,40 @@ adder_32bit pc_4_adder_wb (
 mux_2x1_32bit mux_mem (
     .IN0 (MUX_EX_OUT_MEM),
     .IN1 (WB_MUX_OUT),
-    .OUT (DATA_MEM_WRITEDATA),
+    .OUT (lsu_wdata),
     .SELECT (DATAMEMSEL_MEM)    
+);
+
+load_store_unit LSU (
+    .CLK (CLK),
+    .RST_N (RST_N),
+    .data_req_o (data_req_o),
+    .data_gnt_i (data_gnt_i),
+    .data_rvalid_i (data_rvalid_i),
+    .data_bus_err_i (data_err_i),
+    .data_addr_o (data_addr_o),
+    .data_we_o (data_we_o),
+    .data_be_o (data_be_o),
+    .data_wdata_o (data_wdata_o),
+    .data_wdata_intg_o (data_wdata_intg_o),
+    .data_rdata_i (data_rdata_i),
+    .data_rdata_intg_i (data_rdata_intg_i),
+    .READ_WRITE (READ_WRITE_EN),
+    .lsu_wdata_i (lsu_wdata), 
+    .lsu_rdata_o (lsu_rdata),          
+    .lsu_rdata_valid_o (),
+    .adder_result_ex_i (ALU_OUT_MEM),    
+    .addr_incr_req_o (),
+    .addr_last_o (),
+    .lsu_req_done_o (),       
+    .lsu_resp_valid_o (), 
+    .load_err_o (),
+    .load_resp_intg_err_o (),  
+    .store_err_o (),
+    .store_resp_intg_err_o (), 
+    .busy_o (),
+    .perf_load_o (),
+    .perf_store_o ()
 );
 
 mem_wb_pipeline_reg mem_wb_reg (
@@ -300,7 +362,7 @@ mem_wb_pipeline_reg mem_wb_reg (
     .IN_PC_4 (PC_4_WB_OUT),
     .IN_ALU_RESULT (ALU_OUT_MEM), 
     .IN_IMMEDIATE (IMM_GEN_OUT_MEM),
-    .IN_DMEM_OUT (DATA_MEM_READDATA),
+    .IN_DMEM_OUT (lsu_rdata),
     .IN_WB_SEL (WB_SEL_MEM),
     .IN_REG_WRITE_EN (REG_WRITE_EN_MEM),
     .OUT_INSTRUCTION (WRITE_ADDRESS_WB),
@@ -311,7 +373,7 @@ mem_wb_pipeline_reg mem_wb_reg (
     .OUT_WB_SEL (WB_SEL_WB),
     .OUT_REG_WRITE_EN (REG_WRITE_EN_WB),
     .CLK (CLK), 
-    .RESET (RESET)
+    .RST_N (RST_N)
 );
 
 // Writeback stage
