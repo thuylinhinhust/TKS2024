@@ -22,6 +22,6 @@ assign unused_err_i = instr_err_i;
 
 assign instr_req_o = (PC == -4) ? 0 : 1;
 assign instr_addr_o = PC;
-assign instruction = (instr_gnt_i & instr_rvalid_i) ? instr_rdata_i : 32'b0;
+assign instruction = (instr_gnt_i & instr_rvalid_i) ? instr_rdata_i : 32'bx;
 
 endmodule

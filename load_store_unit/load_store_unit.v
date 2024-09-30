@@ -62,7 +62,7 @@ module load_store_unit (
   reg          addr_update;
   reg          ctrl_update;
   reg          rdata_update;
-  reg  [23:0]  rdata_q;
+  reg  [31:8]  rdata_q;
   reg  [1:0]   rdata_offset_q;
   reg  [1:0]   data_type_q;
   reg          data_sign_ext_q;
@@ -231,9 +231,9 @@ module load_store_unit (
   always @(rdata_offset_q, data_rdata_i, rdata_q) begin
     case (rdata_offset_q)
       2'b00:   rdata_w_ext =  data_rdata_i[31:0];
-      2'b01:   rdata_w_ext = {data_rdata_i[7:0], rdata_q[31:8]};
-      2'b10:   rdata_w_ext = {data_rdata_i[15:0], rdata_q[31:16]};
-      2'b11:   rdata_w_ext = {data_rdata_i[23:0], rdata_q[31:24]};
+      2'b01:   rdata_w_ext = {data_rdata_i[7:0], data_rdata_i[31:8]};
+      2'b10:   rdata_w_ext = {data_rdata_i[15:0], data_rdata_i[31:16]};
+      2'b11:   rdata_w_ext = {data_rdata_i[23:0], data_rdata_i[31:24]};
       default: rdata_w_ext =  data_rdata_i[31:0];
     endcase
   end
@@ -424,7 +424,7 @@ module load_store_unit (
           // Record the error status of the first part
           lsu_err_d = data_bus_err_i;  // | pmp_err_q;
           // Capture the first rdata for loads
-          rdata_update = ~data_we_q;
+          //rdata_update = ~data_we_q;
           // If already granted, wait for second rvalid
           ls_fsm_ns = data_gnt_i ? IDLE : WAIT_GNT;
           // Update the address for the second part, if no error
@@ -467,7 +467,7 @@ module load_store_unit (
           // Now we can update the address for the second part if no error
           addr_update = ~data_bus_err_i;
           // Capture the first rdata for loads
-          rdata_update = ~data_we_q;
+          //rdata_update = ~data_we_q;
           // Wait for second rvalid
           ls_fsm_ns = IDLE;
         end

@@ -8,3 +8,4 @@ or x13 x6 x2
 add x14 x2 x2
 addi x15 x0 10
 sw x15 100(x2)
+lw x18 100(x2)

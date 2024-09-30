@@ -44,7 +44,7 @@ module ibex_demo_system #(
   output logic        td_o      // JTAG test data output pad
 );
   localparam logic [31:0] MEM_SIZE      = 64 * 1024; // 64 KiB
-  localparam logic [31:0] MEM_START     = 32'h00100000;
+  localparam logic [31:0] MEM_START     = 32'h00000000;
   localparam logic [31:0] MEM_MASK      = ~(MEM_SIZE-1);
 
   localparam logic [31:0] GPIO_SIZE     =  4 * 1024; //  4 KiB
