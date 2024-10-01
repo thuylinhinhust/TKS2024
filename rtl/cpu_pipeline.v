@@ -119,6 +119,7 @@ immediate_generate imm_gen (
 );
 
 control_unit ctrl_unit ( //doc lai sau
+    .IN_INSTRUCTION (INSTRUCTION_ID),
     .OPCODE (INSTRUCTION_ID[6:0]),
     .FUNCT3 (INSTRUCTION_ID[14:12]),
     .FUNCT7 (INSTRUCTION_ID[31:25]),
@@ -129,7 +130,12 @@ control_unit ctrl_unit ( //doc lai sau
     .ALUOP (ALUOP), 
     .BRANCH_JUMP (BRANCH_JUMP), 
     .IMM_SEL (IMM_SEL), 
-    .READ_WRITE (READ_WRITE)
+    .READ_WRITE (READ_WRITE),
+    .ecall_insn_o(ecall_inst),
+    .dret_insn_o(dret_inst),
+    .mret_insn_o(mret_inst),
+    .wfi_insn_o(wfi_inst),
+    .ebrk_insn_o(ebrk_insn)
 );
 
 forwarding_unit fwd_unit ( //doc lai sau

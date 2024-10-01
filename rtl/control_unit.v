@@ -1,5 +1,6 @@
 module control_unit (OPCODE, FUNCT3, FUNCT7, OP1SEL, OP2SEL, REG_WRITE_EN, WB_SEL, ALUOP, BRANCH_JUMP, IMM_SEL, READ_WRITE);
 
+input [31:0] IN_INSTRUCTION;
 input [6:0] OPCODE;
 input [2:0] FUNCT3;
 input [6:0] FUNCT7;
@@ -9,12 +10,15 @@ output [4:0] ALUOP;
 output [2:0] BRANCH_JUMP;
 output [2:0] IMM_SEL;
 output [3:0] READ_WRITE;
+output ecall_insn_o, dret_insn_o, mret_insn_o, wfi_insn_o, ebrk_insn_o;
 
 wire LUI, AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE, R_TYPE;
 wire ALUOP_TYPE, BJ_TYPE;
 wire [2:0] IMM_TYPE; 
+wire SYSTEM; 
 
-and lui (LUI, !OPCODE[6], OPCODE[5], OPCODE[4], !OPCODE[3], OPCODE[2], OPCODE[1], OPCODE[0]);
+//xac dinh lenh dua tren opcode
+and lui (LUI, !OPCODE[6], OPCODE[5], OPCODE[4], !OPCODE[3], OPCODE[2], OPCODE[1], OPCODE[0]); //opcode = 0110111
 and auipc (AUIPC, !OPCODE[6], !OPCODE[5], OPCODE[4], !OPCODE[3], OPCODE[2], OPCODE[1], OPCODE[0]);
 and jal (JAL, OPCODE[6], OPCODE[5], !OPCODE[4], OPCODE[3], OPCODE[2], OPCODE[1], OPCODE[0]);
 and jalr (JALR, OPCODE[6], OPCODE[5], !OPCODE[4], !OPCODE[3], OPCODE[2], OPCODE[1], OPCODE[0]);
@@ -24,10 +28,12 @@ and store (STORE, !OPCODE[6], OPCODE[5], !OPCODE[4], !OPCODE[3], !OPCODE[2], OPC
 and i_type (I_TYPE, !OPCODE[6], !OPCODE[5], OPCODE[4], !OPCODE[3], !OPCODE[2], OPCODE[1], OPCODE[0]);
 and r_type (R_TYPE, !OPCODE[6], OPCODE[5], OPCODE[4], !OPCODE[3], !OPCODE[2], OPCODE[1], OPCODE[0]);
 
-or op1sel (OP1SEL, AUIPC, JAL, B_TYPE);  //use PC+imm
-or op2sel (OP2SEL, AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE);  //use imm -> except R-type, LUI (imm from WB mux)
-or reg_write_en (REG_WRITE_EN, LUI, AUIPC, JAL, JALR, LOAD, I_TYPE, R_TYPE);
-or wb_sel1 (WB_SEL[1], LUI, JAL, JALR);  //WB (PC+4) -> JAL, JALR; imm -> LUI
+and system_inst(SYSTEM, OPCODE[6], OPCODE[5], OPCODE[4], !OPCODE[3], !OPCODE[2], !OPCODE[1], OPCODE[0]); //system opcode = 1110011
+
+or op1sel (OP1SEL, AUIPC, JAL, B_TYPE);  //use PC+imm //neu lenh la AUIPC, JAL, B_TYPE thi toan hang dau tien la PC+imm
+or op2sel (OP2SEL, AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE);  //use imm -> except R-type, LUI (imm from WB mux) //neu lenh la AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE thi toan hang thu hai la immediate (tru R_TYPE va LUI)
+or reg_write_en (REG_WRITE_EN, LUI, AUIPC, JAL, JALR, LOAD, I_TYPE, R_TYPE); // xac dinh khi nao thanh ghi can ghi du lieu
+or wb_sel1 (WB_SEL[1], LUI, JAL, JALR);  //WB (PC+4) -> JAL, JALR; imm -> LUI //ghi du lieu vao thanh ghi
 or wb_sel0 (WB_SEL[0], JAL, JALR, LOAD);  //(PC+4), LOAD
 or aluop_type (ALUOP_TYPE, I_TYPE, R_TYPE);
 or bj_type (BJ_TYPE, JAL, JALR, B_TYPE);
@@ -105,5 +111,13 @@ or mem_rw3 (READ_WRITE[3], LOAD, STORE);
 or mem_rw2 (READ_WRITE[2], LBU, LHU, SH, SW);
 or mem_rw1 (READ_WRITE[1], SH, SW, SB, LW);
 or mem_rw0 (READ_WRITE[0], SW, SB, LHU, LH);
+
+//SYSTEM opcode decoding (opcode = 1110011)
+// ecall, ebreak, mret, dret, wfi signals
+and ecall_inst (ecall_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h000));
+and ebreak_inst (ebrk_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h001));
+and mret_inst (mret_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h302));
+and dret_inst (dret_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h7b2));
+and wfi_inst (wfi_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h105));
 
 endmodule
