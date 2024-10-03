@@ -1,4 +1,4 @@
-module control_unit (OPCODE, FUNCT3, FUNCT7, OP1SEL, OP2SEL, REG_WRITE_EN, WB_SEL, ALUOP, BRANCH_JUMP, IMM_SEL, READ_WRITE);
+module control_unit (IN_INSTRUCTION, OPCODE, FUNCT3, FUNCT7, OP1SEL, OP2SEL, REG_WRITE_EN, WB_SEL, ALUOP, BRANCH_JUMP, IMM_SEL, READ_WRITE);
 
 input [31:0] IN_INSTRUCTION;
 input [6:0] OPCODE;
@@ -10,7 +10,8 @@ output [4:0] ALUOP;
 output [2:0] BRANCH_JUMP;
 output [2:0] IMM_SEL;
 output [3:0] READ_WRITE;
-output ecall_insn_o, dret_insn_o, mret_insn_o, wfi_insn_o, ebrk_insn_o;
+output ecall_insn_o, ebrk_insn_o, dret_insn_o, mret_insn_o, wfi_insn_o;
+output illegal_insn_o;
 
 wire LUI, AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE, R_TYPE;
 wire ALUOP_TYPE, BJ_TYPE;
@@ -119,5 +120,10 @@ and ebreak_inst (ebrk_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20]
 and mret_inst (mret_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h302));
 and dret_inst (dret_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h7b2));
 and wfi_inst (wfi_insn_o, SYSTEM, (FUNCT3 == 3'b000), (IN_INSTRUCTION[31:20] == 12'h105));
+
+// Check if the instruction is valid
+wire is_valid_instruction;
+or valid_instr_check(is_valid_instruction, LUI, AUIPC, JAL, JALR, B_TYPE, LOAD, STORE, I_TYPE, R_TYPE, ecall_insn_o, ebrk_insn_o, dret_insn_o, mret_insn_o, wfi_insn_o);
+assign illegal_insn_o = !is_valid_instruction;
 
 endmodule

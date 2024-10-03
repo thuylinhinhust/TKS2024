@@ -41,6 +41,7 @@ wire STALL;
 wire COMPRESS_INSTR, ILLEGAL_INSTR;
 wire [31:0] PC_ADDRESS;
 wire [31:0] lsu_wdata, lsu_rdata;
+wire ecall_insn, ebrk_insn, dret_insn, mret_insn, illegal_insn;
 
 assign WRITE_ENABLE = REG_WRITE_EN_WB;
 
@@ -131,11 +132,12 @@ control_unit ctrl_unit ( //doc lai sau
     .BRANCH_JUMP (BRANCH_JUMP), 
     .IMM_SEL (IMM_SEL), 
     .READ_WRITE (READ_WRITE),
-    .ecall_insn_o(ecall_inst),
-    .dret_insn_o(dret_inst),
-    .mret_insn_o(mret_inst),
-    .wfi_insn_o(wfi_inst),
-    .ebrk_insn_o(ebrk_insn)
+    .ecall_insn_o(ecall_insn),
+    .ebrk_insn_o(ebrk_insn),
+    .dret_insn_o(dret_insn),
+    .mret_insn_o(mret_insn),
+    .wfi_insn_o(wfi_insn),
+    .illegal_insn_o(illegal_insn)
 );
 
 forwarding_unit fwd_unit ( //doc lai sau
