@@ -39,7 +39,7 @@ module ibex_demo_system import ibex_pkg::*; #(
   input  logic        td_i,     // JTAG test data input pad
   output logic        td_o      // JTAG test data output pad
 );
-  localparam logic [31:0] MEM_SIZE      = 64 * 1024; // 64 KiB
+  localparam logic [31:0] MEM_SIZE      = 64 * 1024; // 64 KiBit
   localparam logic [31:0] MEM_START     = 32'h00000000;
   localparam logic [31:0] MEM_MASK      = ~(MEM_SIZE-1);
 
@@ -73,7 +73,7 @@ module ibex_demo_system import ibex_pkg::*; #(
   parameter logic [31:0] SIM_CTRL_MASK  = ~(SIM_CTRL_SIZE-1);
 
   // Debug functionality is optional.
-  localparam bit DBG = 1;
+  localparam bit DBG = 0;
   localparam int unsigned DbgHwBreakNum = (DBG == 1) ?    2 :    0;
   localparam bit          DbgTriggerEn  = (DBG == 1) ? 1'b1 : 1'b0;
 
@@ -314,8 +314,7 @@ module ibex_demo_system import ibex_pkg::*; #(
     .b_rvalid_o(),
     .b_rdata_o (core_instr_rdata)
   );
-
-  /*
+  
   gpio #(
     .GpiWidth ( GpiWidth ),
     .GpoWidth ( GpoWidth )
@@ -412,7 +411,7 @@ module ibex_demo_system import ibex_pkg::*; #(
       .rvalid_o(device_rvalid[SimCtrl]),
       .rdata_o (device_rdata[SimCtrl])
     );
-  `endif
+  `endif 
 
   timer #(
     .DataWidth    ( 32 ),
@@ -431,7 +430,7 @@ module ibex_demo_system import ibex_pkg::*; #(
     .timer_err_o   (device_err[Timer]),
     .timer_intr_o  (timer_irq)
   );
-
+  /*
   assign dbg_device_req        = device_req[DbgDev] | dbg_instr_req;
   assign dbg_device_we         = device_req[DbgDev] & device_we[DbgDev];
   assign dbg_device_addr       = device_req[DbgDev] ? device_addr[DbgDev] : core_instr_addr;
@@ -490,6 +489,7 @@ module ibex_demo_system import ibex_pkg::*; #(
     assign ndmreset_req = 1'b0;
   end
 
+  /*
   `ifdef VERILATOR
 
     export "DPI-C" function mhpmcounter_num;
