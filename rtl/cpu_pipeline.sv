@@ -1,8 +1,52 @@
-module cpu_pipeline (CLK, RST_N, test_en_i, ram_cfg_i, hart_id_i, boot_addr_i, 
-                     instr_req_o, instr_gnt_i, instr_rvalid_i, instr_addr_o, instr_rdata_i,
-                     instr_rdata_intg_i, instr_err_i, data_req_o, data_gnt_i,
-                     data_rvalid_i, data_we_o, data_be_o, data_addr_o, data_wdata_o,
-                     data_wdata_intg_o, data_rdata_i, data_rdata_intg_i, data_err_i);
+module cpu_pipeline #(
+  parameter PMPEnable = 1'b0,
+  parameter PMPGranularity = 0,
+  parameter PMPNumRegions = 4,
+  parameter MHPMCounterNum = 0,
+  parameter MHPMCounterWidth = 40,
+  parameter [1:0] PMPRstCfg[16] = '{16'h0000, 16'h0000, 16'h0000, 16'h0000,
+				    16'h0000, 16'h0000, 16'h0000, 16'h0000,
+				    16'h0000, 16'h0000, 16'h0000, 16'h0000,
+			            16'h0000, 16'h0000, 16'h0000, 16'h0000},  
+  parameter logic [33:0] PMPRstAddr[16] = '{34'h00000000, 34'h00000000, 34'h00000000, 34'h00000000, 
+                                           34'h00000000, 34'h00000000, 34'h00000000, 34'h00000000,
+                                           34'h00000000, 34'h00000000, 34'h00000000, 34'h00000000,
+                                           34'h00000000, 34'h00000000, 34'h00000000, 34'h00000000},
+
+  parameter [1:0] PMPRstMsecCfg = 2'b00,  
+  parameter RV32E = 1'b0,
+  parameter RV32M = 2'b10,
+  parameter RV32B = 2'b00,
+  parameter RegFile = 2'b01, 
+  parameter BranchTargetALU = 1'b0,
+  parameter WritebackStage = 1'b0,
+  parameter ICache = 1'b0,
+  parameter ICacheECC = 1'b0,
+  parameter BranchPredictor = 1'b0,
+  parameter DbgTriggerEn = 1'b0,
+  parameter DbgHwBreakNum = 1,
+  parameter SecureIbex = 1'b0,
+  parameter ICacheScramble = 1'b0,
+  parameter ICacheScrNumPrinceRoundsHalf = 2,
+  parameter [31:0] RndCnstLfsrSeed = 32'hDEADBEEF,
+  parameter [31:0] RndCnstLfsrPerm = 32'hCAFEBABE,
+  parameter [31:0] DmHaltAddr = 32'h1A110800,
+  parameter [31:0] DmExceptionAddr = 32'h1A110808,
+  parameter [127:0] RndCnstIbexKey = 128'hDEADBEEFDEADBEEF, 
+  parameter [63:0] RndCnstIbexNonce = 64'hCAFEBABECAFEBABE
+) (     CLK, RST_N, test_en_i, ram_cfg_i, hart_id_i, boot_addr_i, 
+        instr_req_o, instr_gnt_i, instr_rvalid_i, instr_addr_o, instr_rdata_i,
+        instr_rdata_intg_i, instr_err_i, data_req_o, data_gnt_i,
+        data_rvalid_i, data_we_o, data_be_o, data_addr_o, data_wdata_o,
+        data_wdata_intg_o, data_rdata_i, data_rdata_intg_i, data_err_i,
+        rvfi_valid, rvfi_order, rvfi_insn, rvfi_trap, rvfi_halt, rvfi_intr,
+        rvfi_mode, rvfi_ixl, rvfi_rs1_addr, rvfi_rs2_addr, rvfi_rs3_addr, 
+        rvfi_rs1_rdata, rvfi_rs2_rdata, rvfi_rs3_rdata, rvfi_rd_addr, rvfi_rd_wdata, 
+        rvfi_pc_rdata, rvfi_pc_wdata, rvfi_mem_addr, rvfi_mem_rmask, rvfi_mem_wmask, 
+        rvfi_mem_rdata, rvfi_mem_wdata, rvfi_ext_pre_mip, rvfi_ext_post_mip, rvfi_ext_nmi, 
+        rvfi_ext_nmi_int, rvfi_ext_debug_req, rvfi_ext_debug_mode, rvfi_ext_rf_wr_suppress,
+        rvfi_ext_mcycle, rvfi_ext_mhpmcounters [10], rvfi_ext_mhpmcountersh [10], 
+        rvfi_ext_ic_scr_key_valid, rvfi_ext_irq_valid);
 
 input CLK, RST_N;
 input test_en_i, ram_cfg_i;
@@ -22,6 +66,42 @@ output [3:0] data_be_o;
 output [31:0] data_addr_o;
 output [31:0] data_wdata_o;
 output [6:0] data_wdata_intg_o;
+
+output        rvfi_valid;
+output [63:0] rvfi_order;
+output [31:0] rvfi_insn;
+output        rvfi_trap;
+output        rvfi_halt;
+output        rvfi_intr;
+output [ 1:0] rvfi_mode;
+output [ 1:0] rvfi_ixl;
+output [ 4:0] rvfi_rs1_addr;
+output [ 4:0] rvfi_rs2_addr;
+output [ 4:0] rvfi_rs3_addr;
+output [31:0] rvfi_rs1_rdata;
+output [31:0] rvfi_rs2_rdata;
+output [31:0] rvfi_rs3_rdata;
+output [ 4:0] rvfi_rd_addr;
+output [31:0] rvfi_rd_wdata;
+output [31:0] rvfi_pc_rdata;
+output [31:0] rvfi_pc_wdata;
+output [31:0] rvfi_mem_addr;
+output [ 3:0] rvfi_mem_rmask;
+output [ 3:0] rvfi_mem_wmask;
+output [31:0] rvfi_mem_rdata;
+output [31:0] rvfi_mem_wdata;
+output [31:0] rvfi_ext_pre_mip;
+output [31:0] rvfi_ext_post_mip;
+output        rvfi_ext_nmi;
+output        rvfi_ext_nmi_int;
+output        rvfi_ext_debug_req;
+output        rvfi_ext_debug_mode;
+output        rvfi_ext_rf_wr_suppress;
+output [63:0] rvfi_ext_mcycle;
+output [31:0] rvfi_ext_mhpmcounters [10];
+output [31:0] rvfi_ext_mhpmcountersh [10];
+output        rvfi_ext_ic_scr_key_valid;
+output        rvfi_ext_irq_valid;
 
 wire [31:0] PC_4_OUT, ALU_OUT, PC_SEL_MUX_OUT, INSTRUCTION, INSTRUCTION_IF, INSTRUCTION_ID, PC_OUT_ID, WB_MUX_OUT, REG_FILE_OUT1, REG_FILE_OUT2, IMM_GEN_OUT, PC_OUT_EX, REG_FILE_OUT1_EX, REG_FILE_OUT2_EX, IMM_GEN_OUT_EX, OPERAND1, OPERAND2, PC_OUT_MEM, ALU_OUT_MEM, IMM_GEN_OUT_MEM, PC_4_WB_OUT, PC_4_WB_OUT_WB, ALU_OUT_WB, IMM_GEN_OUT_WB, READDATA_WB;
 wire PC_SEL, REG_WRITE_EN_WB, WRITE_ENABLE, OP1SEL, OP2SEL, REG_WRITE_EN, REG_WRITE_EN_EX, REG_WRITE_EN_MEM;
@@ -44,6 +124,33 @@ wire [31:0] lsu_wdata, lsu_rdata;
 wire ecall_insn, ebrk_insn, dret_insn, mret_insn, illegal_insn;
 
 assign WRITE_ENABLE = REG_WRITE_EN_WB;
+
+//tracer's related signal
+assign rvfi_valid = 1'b1; 
+assign rvfi_insn = INSTRUCTION_IF;
+assign rvfi_rs1_addr = INSTRUCTION_ID[19:15];
+assign rvfi_rs2_addr = INSTRUCTION_ID[24:20];
+assign rvfi_rs1_rdata = REG_FILE_OUT1;
+assign rvfi_rs2_rdata = REG_FILE_OUT2;
+assign rvfi_rd_addr = WRITE_ADDRESS_WB;
+assign rvfi_rd_wdata = WB_MUX_OUT;
+assign rvfi_pc_rdata = PC_ADDRESS;
+assign rvfi_pc_wdata = PC_SEL_MUX_OUT;
+assign rvfi_mem_addr = data_addr_o; 
+assign rvfi_mem_rmask = 4'b1111;
+assign rvfi_mem_wmask = data_be_o; 
+assign rvfi_mem_rdata = data_rdata_i; 
+assign rvfi_mem_wdata = data_wdata_o;  
+
+
+//assign rvfi_trap = 0;
+//assign rvfi_halt = 0;           
+//assign rvfi_intr = 0;          
+//assign rvfi_mode = 2'b11;
+//assign rvfi_ixl = 2'b01;
+//assign rvfi_order = 0;
+assign rvfi_rs3_addr = 0;
+assign rvfi_rs3_rdata = 0;
 
 // Instruction fetch stage
 mux_2x1_32bit pc_sel_mux (
