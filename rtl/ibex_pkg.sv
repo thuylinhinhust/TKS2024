@@ -9,6 +9,48 @@
 package ibex_pkg;
 
   /////////////////////
+  // prim_util_pkg   //
+  /////////////////////
+
+  function automatic integer _clog2(integer value);
+    integer result;
+    // Use an intermediate value to avoid assigning to an input port, which produces a warning in
+    // Synopsys DC.
+    integer v = value;
+    v = v - 1;
+    for (result = 0; v > 0; result++) begin
+      v = v >> 1;
+    end
+    return result;
+  endfunction
+
+
+  function automatic integer vbits(integer value);
+`ifdef XCELIUM
+    // The use of system functions was not allowed here in Verilog-2001, but is
+    // valid since (System)Verilog-2005, which is also when $clog2() first
+    // appeared.
+    // Xcelium < 19.10 does not yet support the use of $clog2() here, fall back
+    // to an implementation without a system function. Remove this workaround
+    // if we require a newer Xcelium version.
+    // See #2579 and #2597.
+    return (value == 1) ? 1 : _clog2(value);
+`else
+    return (value == 1) ? 1 : $clog2(value);
+`endif
+  endfunction
+
+`ifdef INC_ASSERT
+  // Package-scoped variable to detect the end of simulation.
+  //
+  // Used only in DV simulations. The bit will be used by assertions in RTL to perform end-of-test
+  // cleanup. It is set to 1 in `dv_test_status_pkg::dv_test_status()`, which is invoked right
+  // before the simulation is terminated, to signal the status of the test.
+  bit end_of_simulation;
+`endif
+
+
+  /////////////////////
   // prim_ram_2p_pkg //
   /////////////////////
 
