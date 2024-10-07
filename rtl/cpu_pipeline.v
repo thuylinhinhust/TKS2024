@@ -41,6 +41,7 @@ wire STALL;
 wire COMPRESS_INSTR, ILLEGAL_INSTR;
 wire [31:0] PC_ADDRESS;
 wire [31:0] lsu_wdata, lsu_rdata;
+wire ecall_insn, ebrk_insn, dret_insn, mret_insn, illegal_insn;
 
 
 // Instruction fetch stage
@@ -118,6 +119,7 @@ immediate_generate imm_gen (
 );
 
 control_unit ctrl_unit ( //doc lai sau
+    .IN_INSTRUCTION (INSTRUCTION_ID),
     .OPCODE (INSTRUCTION_ID[6:0]),
     .FUNCT3 (INSTRUCTION_ID[14:12]),
     .FUNCT7 (INSTRUCTION_ID[31:25]),
@@ -128,7 +130,13 @@ control_unit ctrl_unit ( //doc lai sau
     .ALUOP (ALUOP), 
     .BRANCH_JUMP (BRANCH_JUMP), 
     .IMM_SEL (IMM_SEL), 
-    .READ_WRITE (READ_WRITE)
+    .READ_WRITE (READ_WRITE),
+    .ecall_insn_o(ecall_insn),
+    .ebrk_insn_o(ebrk_insn),
+    .dret_insn_o(dret_insn),
+    .mret_insn_o(mret_insn),
+    .wfi_insn_o(wfi_insn),
+    .illegal_insn_o(illegal_insn)
 );
 
 forwarding_unit fwd_unit ( //doc lai sau
